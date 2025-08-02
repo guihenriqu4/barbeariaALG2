@@ -3,7 +3,7 @@
 
 ## Integrantes: 
 
-> Adriano Ferro de Oliveira Filho / 12511BSI/261 <br>
+> Adriano Ferro de Oliveira Filho / 12511BSI261 <br>
 > Emerson Gustavo Cintra Silva / 12421BSI300 <br>
 > Felipe Caseri Piva / 12421BSI340 <br>
 > Guilherme Conegundes Pereira / 12421BSI254 <br>
