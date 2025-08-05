@@ -22,8 +22,16 @@ void inserirAgendamento(Agendamento *p){
     printf("Informe quantos serviços foram solicitados: "); scanf("%d", &n);
 
     a.servicoDesejado = malloc(n * sizeof(char *));
+    if(a.servicoDesejado == NULL){
+        perror("Erro ao realocar memória\n");
+        return;
+    }
     for(int i = 0; i < n; i++){
         a.servicoDesejado[i] = malloc(200 * sizeof(char));
+        if(a.servicoDesejado[i] == NULL){
+            perror("Erro ao realocar memória\n");
+            return;
+        }
         printf("Informe o nome do %d˚ serviço: ", i+1);
         scanf(" %[^\n]s", a.servicoDesejado[i]);
     }

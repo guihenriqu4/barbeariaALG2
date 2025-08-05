@@ -20,8 +20,16 @@ void inserirColab(Colab *p) {
     printf("Informe quantos serviços esse colaborador prestará: "); scanf("%d", &n);
 
     c.servicosPrestados = malloc(n * sizeof(char *));
+    if(c.servicosPrestados == NULL){
+        perror("Erro ao realocar memória\n");
+        return;
+    }
     for(int i = 0; i < n; i++){
         c.servicosPrestados[i] = malloc(200 * sizeof(char));
+        if(c.servicosPrestados[i] == NULL){
+            perror("Erro ao realocar memória\n");
+            return;
+        }
         printf("Informe o nome do %d˚serviço: ", i+1);
         scanf(" %[^\n]s", c.servicosPrestados[i]);
     }
