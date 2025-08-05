@@ -5,7 +5,7 @@ typedef struct {
     int id;
     char nome[50];
     long int celular;
-    char servicosPrestados[];
+    char **servicosPrestados;
 }Colab;
 
 #endif

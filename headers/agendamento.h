@@ -6,11 +6,11 @@ struct Colab;
 
 typedef struct {
     long int id;
-    struct Cliente *cliente;
-    struct Colab *colab;
+    char cpfClinte[14];
+    int idColab;
     char data[8]; //formato dd/MM/YY
     char horario[5]; //formato HH:mm
-    char servicoDesejado[];
+    char **servicoDesejado;
 }Agendamento;
 
 #endif
