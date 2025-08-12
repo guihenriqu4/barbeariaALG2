@@ -4,6 +4,7 @@
 
 int qtdCliente = 0;
 
+//Cadastrando cliente
 void inserirCliente(Cliente *p){
     p = realloc(p, (qtdCliente + 1) * sizeof(Cliente));
     if(p == NULL){
@@ -20,4 +21,20 @@ void inserirCliente(Cliente *p){
     p[qtdCliente] = c;
     printf("Cliente inserido com sucesso!\n");
     qtdCliente++;
+}
+
+//Listando todos os Clientes
+void listarClientes(Cliente *clientes) {
+    if (qtdCliente == 0) {
+        printf("Nenhum cliente cadastrado.\n\n");
+        return;
+    }
+
+    for (int i = 0; i < qtdCliente; i++) {
+        printf("---Cliente %d---\n", i + 1);
+        printf("CPF: %s\n", clientes[i].cpf);
+        printf("Nome: %s\n", clientes[i].nome);
+        printf("Celular: %ld\n", clientes[i].celular);
+        printf("Data de integração: %s\n\n", clientes[i].dataIntegracao);
+    }
 }

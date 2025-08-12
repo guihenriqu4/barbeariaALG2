@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "cliente.h"
+#include "colab.h"
+#include "agendamento.h"
 
 void menuPrincipal() {
     int opcao;
@@ -16,7 +19,7 @@ void menuPrincipal() {
 
         switch(opcao) {
         case 1:
-            cadastrarCliente();
+            inserirCliente();
             break;
         case 2:
             listarClientes();
