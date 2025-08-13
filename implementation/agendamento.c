@@ -70,16 +70,20 @@ void listarAgendamentosPosData(Agendamento *agendamentos, int qtdAg, Cliente *cl
     getchar();
 
     printf("Digite o CPF do cliente (000.000.000-00): ");
-    fgets(cpf, sizeof(cpf), stdin);
-    cpf[strcspn(cpf, "\n")] = '\0';
+    scanf(" %13[^\n]", cpf);
 
     printf("Digite a data base (dd/MM/YY), para informar agendamentos subsequentes: ");
     scanf(" %[^\n]", dataBase);
 
     int dataCmp = converterData(dataBase);
     int encontrados = 0;
+<<<<<<< HEAD
 
     printf("\nTodos os agendamentos do colaborador ID %d e cliente CPF %s após a data %s:\n\n", idColab, cpf, dataBase);
+=======
+    
+    printf("\nTodos os agendamentos do colaborador ID %d e cliente CPF %s apos a data %s:\n\n", idColab, cpf, dataBase);
+>>>>>>> 41d0ce020617a9417b24936d3b1666ef3df6c185
 
     for (int i = 0; i < qtdAg; i++) {
         if (strcmp(agendamentos[i].cpfClinte, cpf) == 0 && agendamentos[i].idColab == idColab) {
@@ -89,32 +93,18 @@ void listarAgendamentosPosData(Agendamento *agendamentos, int qtdAg, Cliente *cl
             if (dataAg > dataCmp) {
                 encontrados++;
 
-                Cliente *cli = NULL;
-                for (int c = 0; c < qtdCl; c++) {
-                    if (strcmp(clientes[c].cpf, cpf) == 0) {
-                        cli = &clientes[c];
-                        break;
-                    }
-                }
-
-                Colab *col = NULL;
-                for (int c = 0; c < qtdCol; c++) {
-                    if (colabs[c].id == idColab) {
-                        col = &colabs[c];
-                        break;
-                    }
-                }
-
                 printf("\n--- Agendamento %ld ---\n", agendamentos[i].id);
                 printf("Data: %s\n", agendamentos[i].data);
+<<<<<<< HEAD
                 printf("Horário: %s\n", agendamentos[i].horario);
 
                 //mantendo por boa pratica, mas no caso nao sei se precisa
                 if (cli == NULL)
                     printf("Cliente: Informação não encontrada\n");
+=======
+                printf("Horario: %s\n", agendamentos[i].horario);
+>>>>>>> 41d0ce020617a9417b24936d3b1666ef3df6c185
 
-                if (col == NULL)
-                    printf("Colaborador: Informação não encontrada\n");
 
                 printf("Serviços desejados:\n");
                 for (int j = 0; agendamentos[i].servicoDesejado[j] != NULL; j++) {
