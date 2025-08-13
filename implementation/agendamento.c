@@ -78,12 +78,12 @@ void listarAgendamentosPosData(Agendamento *agendamentos, int qtdAg, Cliente *cl
 
     int dataCmp = converterData(dataBase);
     int encontrados = 0;
-    
+
     printf("\nTodos os agendamentos do colaborador ID %d e cliente CPF %s após a data %s:\n\n", idColab, cpf, dataBase);
 
     for (int i = 0; i < qtdAg; i++) {
         if (strcmp(agendamentos[i].cpfClinte, cpf) == 0 && agendamentos[i].idColab == idColab) {
-            
+
             int dataAg = converterData(agendamentos[i].data);
 
             if (dataAg > dataCmp) {
@@ -108,7 +108,7 @@ void listarAgendamentosPosData(Agendamento *agendamentos, int qtdAg, Cliente *cl
                 printf("\n--- Agendamento %ld ---\n", agendamentos[i].id);
                 printf("Data: %s\n", agendamentos[i].data);
                 printf("Horário: %s\n", agendamentos[i].horario);
-                
+
                 //mantendo por boa pratica, mas no caso nao sei se precisa
                 if (cli == NULL)
                     printf("Cliente: Informação não encontrada\n");
@@ -149,5 +149,44 @@ void listarAgendamentos(Agendamento *agendamentos, int qtd) {
             printf("- %s\n", agendamentos[i].servicoDesejado[j]);
         printf("\n");
     }
-} 
+}
 */
+
+//Alterar as informações do agendamento
+void alterarAgendamento(Agendamento *agend){
+    if (qtdAg == 0){
+        printf("\nNenhum agendamento realizado.\n\n");
+        return;
+    }
+
+    long int idAgBusca
+    printf("\nInforme o ID do agendamento que deseja alterar: ");
+    scanf("%ld",&idAgBusca);
+
+    int encontrarAgendamento = 0;
+    for(int i=0;i<qtdCliente;i++){
+
+        if(strcmp(Agendamento[i].id,idAgBusca)==0){
+            printf("\nInforme o novo CPF do Cliente(000.000.000-00): ");
+            scanf("%[^\n]s",Agendamento[i].cpfCliente);
+            printf("\nInforme o novo ID do Colaborador: ");
+            scanf("%d",&Agendamento[i].idColab);
+            getchar();
+            printf("\nInforme a nova data do agendamento(dd/MM/YY): ");
+            scanf("%[^\n]s",Agendamento[i].data);
+            printf("\nInforme o novo horario do agendamento (HH:mm): ");
+            scanf("%[^\n]s",Agendamento[i].horario);
+            printf("\nInforme o novo servico desejado: ");
+            scanf("%[^\n]s",Agendamento[i].servicoDesejado);
+
+            printf("\n\nAgendamento alterado com sucesso!\n\n");
+            encontrarAgendamento = 1;
+            break;
+        }
+    }
+
+    if(!encontrarAgendamento){
+        printf("Nenhum agendamento realizaddo com o ID %ld",idAgBusca);
+        return;
+    }
+}

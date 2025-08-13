@@ -1,6 +1,7 @@
 #include "colab.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int qtdColab = 0;
 long int id = 1;
@@ -53,8 +54,42 @@ void listarColabs(Colab *colabs) {
         printf("Nome: %s\n", colabs[i].nome);
         printf("Celular: %ld\n", colabs[i].celular);
         printf("Serviços prestados:\n");
-        for (int j = 0; colabs[i].servicosPrestados[j] != NULL; j++) 
+        for (int j = 0; colabs[i].servicosPrestados[j] != NULL; j++)
             printf("- %s\n", colabs[i].servicosPrestados[j]);
         printf("\n");
+    }
+}
+
+//Alterando as informações dos Colaboradores
+void alterarColabs(Colab *colabs){
+    if (qtdColab == 0){
+       printf("\nNenhum colaborador cadastrado.\n\n");
+       return;
+    }
+
+    int idBusca;
+    printf("\nInforme o ID do Colaborador que deseja alterar: ");
+    scanf("%d",&idBusca);
+
+    int colabEncontrado = 0;
+    for(int i=0;i<qtdCliente;i++){
+
+        if(strcmp(Colab[i].id,idBusca) == 0){
+            printf("\nInforme o novo nome do Colaborador: ");
+            scanf("%[^\n]s",colab[i].nome);
+            printf("\nInforme o novo celular do Colaborador (00900000000): ");
+            scanf("%ld",&Colab[i].celular);
+            getchar();
+            printf("\nInforme o(s) novo(s) servico(s) prestado(s) pelo Colaborador: ");
+            scanf("%[^\n]s",Colab[i].servicoPrestados);
+
+            printf("\n\nColaborador alterado com sucesso!\n\n");
+            colabEncontrado = 1;
+            break;
+        }
+    }
+
+    if(!colabEncontrado){
+        printf("Colaborador com ID %s nao encontrado.", idBusca);
     }
 }

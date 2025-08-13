@@ -1,6 +1,7 @@
-#include "cliente.h"
+#include <cliente.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int qtdCliente = 0;
 
@@ -36,5 +37,40 @@ void listarClientes(Cliente *clientes) {
         printf("Nome: %s\n", clientes[i].nome);
         printf("Celular: %ld\n", clientes[i].celular);
         printf("Data de integração: %s\n\n", clientes[i].dataIntegracao);
+    }
+}
+
+//Alterar as informações do Cliente
+void alterarClientes(Cliente *clientes){
+    if (qtdCliente == 0){
+        printf("\nNenhum cliente cadastrado.\n\n");
+        return;
+    }
+
+    char cpfBusca[14];
+    printf("\n\nInforme o CPF do Cliente que deseja alterar (000.000.000-00): ");
+    scanf("%[^\n]s",cpfBusca);
+
+    int clienteEncontrado = 0;
+    for(int i=0;i<qtdCliente;i++){
+
+        if(strcmp(Cliente[i].cpf,cpfBusca) == 0){
+            printf("\n\nCliente encontrado! Por favor, insira as novas informações\n");
+            printf("Informe o novo nome do cliente: ");
+            scanf("%[^\n]s",clientes[i].nome);
+            printf("\nInforme o novo celular do cliente (00900000000): ");
+            scanf("%ld",&clientes[i].celular);
+            getchar();
+            printf("\nInforme a nova data do cadastro (dd/MM/YY): ");
+            scanf("%[^\n]",clientes[i].dataIntegracao);
+
+            printf("\n\nCliente alterado com sucesso!\n\n");
+            clienteEncontrado = 1;
+            break;
+        }
+    }
+
+    if(!clienteEncontrado){
+        printf("\nCliente com CPF %s nao encontrado.\n",cpfBusca);
     }
 }
