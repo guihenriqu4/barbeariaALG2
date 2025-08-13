@@ -35,6 +35,6 @@ void listarClientes(Cliente *clientes) {
         printf("CPF: %s\n", clientes[i].cpf);
         printf("Nome: %s\n", clientes[i].nome);
         printf("Celular: %ld\n", clientes[i].celular);
-        printf("Data de integração: %s\n\n", clientes[i].dataIntegracao);
+        printf("Data de integracao: %s\n\n", clientes[i].dataIntegracao);
     }
 }
