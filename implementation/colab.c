@@ -6,14 +6,14 @@
 #define INCREMENTO 5 //Número constante que incrementará as posições em blocos de 5
 
 int qtdColab = 0; //Gerencia a quantidade de colaboradores existentes
-int capacidade = 0; //Gerencia a capacidade do vetor de colaboradores (tamanho total alocado)
-long int id = 0; //Utilizado para vincular identificadores aos colaboradores
+int capacidadeC = 0; //Gerencia a capacidade do vetor de colaboradores (tamanho total alocado)
+int id = 0; //Utilizado para vincular identificadores aos colaboradores
 
 //Cadastrando colaborador
 void inserirColab(Colab *p) {
-    if(qtdColab >= capacidade){ //Verifica se existem colaboradores suficientes para preencher completamente o vetor
-        capacidade += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
-        p = (Colab *) realloc(p, capacidade * sizeof(Colab)); //Realoca memória de acordo com o bloco
+    if(qtdColab >= capacidadeC){ //Verifica se existem colaboradores suficientes para preencher completamente o vetor
+        capacidadeC += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
+        p = (Colab *) realloc(p, capacidadeC * sizeof(Colab)); //Realoca memória de acordo com o bloco
         if(p == NULL){ //Verifica se a alocação foi bem sucedida
             perror("Erro ao realocar memória\n");
             return;
@@ -54,7 +54,7 @@ void inserirColab(Colab *p) {
 
     //Armazena o colaborador no vetor
     p[qtdColab] = c;
-    printf("Colaborador inserido com sucesso! ID: %ld\n", c.id);
+    printf("Colaborador inserido com sucesso! ID: %d\n", c.id);
     qtdColab++; //Indica que houve um aumento na quantidade de colaboradores
 }
 

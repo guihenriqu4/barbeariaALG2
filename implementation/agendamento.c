@@ -7,15 +7,15 @@
 // #define INCREMENTO 5
 
 // long int qtdAgen = 0;
-// long int capacidade = 0;
+// long int capacidadeA = 0;
 // long int id = 1;
 
 
 // //Cadastrando novo agendamento
 // void inserirAgendamento(Agendamento *p){
-//     if(qtdAgen >= capacidade){ //Verifica se existem agendamentos suficientes para preencher completamente o vetor
-//         capacidade += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
-//         p = (Agendamento *) (p, capacidade * sizeof(Agendamento)); //Realoca memória de acordo com o bloco
+//     if(qtdAgen >= capacidadeA){ //Verifica se existem agendamentos suficientes para preencher completamente o vetor
+//         capacidadeA += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
+//         p = (Agendamento *) (p, capacidadeA * sizeof(Agendamento)); //Realoca memória de acordo com o bloco
 //         if(p == NULL){ //Verifica se a alocação foi bem sucedida
 //             perror("Erro ao realocar memória\n");
 //             return;

@@ -93,13 +93,13 @@ void menuAgendamentos() {
 
        switch(opcao) {
             case 1:
-                inserirAgendamento(agendamentos);
+                //inserirAgendamento(agendamentos);
                 break;
             case 2:
-                listarAgendamentos(agendamentos);
+                //listarAgendamentos(agendamentos);
                 break;
             case 3:
-                alterarAgendamentos(agendamentos);
+                //alterarAgendamentos(agendamentos);
                 break;
             case 4:
                 //removerAgendamentos(agendamentos);

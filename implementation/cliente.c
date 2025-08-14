@@ -6,13 +6,13 @@
 #define INCREMENTO 5 //Número constante que incrementará as posições em blocos de 5
 
 int qtdCliente = 0; //Gerencia a quantidade de clientes existentes
-int capacidade = 0; //Gerencia a capacidade do vetor de clientes (tamanho total alocado)
+int capacidadeCl = 0; //Gerencia a capacidade do vetor de clientes (tamanho total alocado)
 
 //Cadastrando cliente
 void inserirCliente(Cliente *p){
-    if(qtdCliente >= capacidade){ //Verifica se existem clientes suficientes para preencher completamente o vetor
-        capacidade += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
-        p = (Cliente *) realloc(p, capacidade * sizeof(Cliente)); //Realoca memória de acordo com o bloco
+    if(qtdCliente >= capacidadeCl){ //Verifica se existem clientes suficientes para preencher completamente o vetor
+        capacidadeCl += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
+        p = (Cliente *) realloc(p, capacidadeCl * sizeof(Cliente)); //Realoca memória de acordo com o bloco
         if(p == NULL){ //Verifica se a alocação foi bem sucedida
             perror("Erro ao realocar memória\n");
             return;
