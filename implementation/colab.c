@@ -71,7 +71,7 @@ void listarColabs(Colab *colabs) {
         printf("Nome: %s\n", colabs[i].nome);
         printf("Celular: %ld\n", colabs[i].celular);
         printf("Servicos prestados:\n");
-        for (int j = 0; colabs[i].servicosPrestados[j] != NULL; j++) 
+        for (int j = 0; colabs[i].servicosPrestados[j] != NULL; j++)
             printf("- %s\n", colabs[i].servicosPrestados[j]);
         printf("\n");
     }
@@ -89,16 +89,33 @@ void alterarColabs(Colab *colabs){
     scanf("%d",&idBusca);
 
     int colabEncontrado = 0;
+    int N;
     for(int i = 0; i < qtdColab; i++){
 
-        if(strcmp(colabs[i].id,idBusca) == 0){
+        if(colabs[i].id == idBusca){
             printf("\nInforme o novo nome do Colaborador: ");
             scanf("%[^\n]s",colabs[i].nome);
             printf("\nInforme o novo celular do Colaborador (00900000000): ");
             scanf("%ld",&colabs[i].celular);
-            getchar();
-            printf("\nInforme o(s) novo(s) servico(s) prestado(s) pelo Colaborador: ");
-            //scanf("%[^\n]s",colabs[i].servicoPrestados);
+            printf("\nInforme quantos servicos esse colaborador prestará: ");
+            scanf("%d",&N);
+
+            colabs.servicoPrestados = (char**)realloc(N*sizeof(char*));
+            if(colabs.servicoPrestados == NULL){
+                perror("\nErro ao realocar memoria!\n");
+                return;
+            }
+
+            for(int j=0;j<N;j++){
+                colabs.servicosPrestados[j] = (char *)malloc(200 * sizeof(char));
+                if(colabs.servicosPrestados[j] == NULL){
+                    perror("\nErro ao realocar memoria\n");
+                    return;
+                    }
+
+                printf("\nInforme o nome do %d˚servico: ", j+1);
+                scanf("%[^\n]s", colabs.servicosPrestados[j]);
+            }
 
             printf("\n\nColaborador alterado com sucesso!\n\n");
             colabEncontrado = 1;
