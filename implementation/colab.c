@@ -53,13 +53,8 @@ void listarColabs(Colab *colabs) {
         printf("ID: %d\n", colabs[i].id);
         printf("Nome: %s\n", colabs[i].nome);
         printf("Celular: %ld\n", colabs[i].celular);
-<<<<<<< HEAD
-        printf("Serviços prestados:\n");
-        for (int j = 0; colabs[i].servicosPrestados[j] != NULL; j++)
-=======
         printf("Servicos prestados:\n");
         for (int j = 0; colabs[i].servicosPrestados[j] != NULL; j++) 
->>>>>>> 41d0ce020617a9417b24936d3b1666ef3df6c185
             printf("- %s\n", colabs[i].servicosPrestados[j]);
         printf("\n");
     }
