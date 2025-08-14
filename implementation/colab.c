@@ -1,44 +1,61 @@
-#include "colab.h"
+#include "../headers/colab.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int qtdColab = 0;
-long int id = 1;
+#define INCREMENTO 5 //Número constante que incrementará as posições em blocos de 5
+
+int qtdColab = 0; //Gerencia a quantidade de colaboradores existentes
+int capacidade = 0; //Gerencia a capacidade do vetor de colaboradores (tamanho total alocado)
+long int id = 0; //Utilizado para vincular identificadores aos colaboradores
 
 //Cadastrando colaborador
 void inserirColab(Colab *p) {
-    p = realloc(p, (qtdColab + 1) * sizeof(Colab));
-    if(p == NULL){
-        perror("Erro ao realocar memória\n");
-        return;
+    if(qtdColab >= capacidade){ //Verifica se existem colaboradores suficientes para preencher completamente o vetor
+        capacidade += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
+        p = (Colab *) realloc(p, capacidade * sizeof(Colab)); //Realoca memória de acordo com o bloco
+        if(p == NULL){ //Verifica se a alocação foi bem sucedida
+            perror("Erro ao realocar memória\n");
+            return;
+        }
     }
 
+    //Solicita as informações necessárias para inserir um novo colaborador
     Colab c;
     int n;
-    c.id = id++;
-    printf("Informe o nome do colaborador: "); scanf(" %[^\n]s", c.nome);
-    printf("Informe o celular do colaborador (00900000000): "); scanf("%ld", &c.celular);
-    printf("Informe quantos serviços esse colaborador prestará: "); scanf("%d", &n);
+    c.id = ++id; //Atribui um identificador ao colaborador em uma sequência crescente
+    printf("Informe o nome do colaborador: ");
+    scanf(" %[^\n]s", c.nome);
 
-    c.servicosPrestados = malloc(n * sizeof(char *));
+    printf("Informe o celular do colaborador (00900000000): ");
+    scanf("%ld", &c.celular);
+
+    printf("Informe quantos serviços esse colaborador prestará: ");
+    scanf("%d", &n);
+
+    //Serviços prestados é uma matriz visto que é um vetor (char) de vetores (também do tipo char). Portanto, é necessário solicitar a informação de quantos serviços vão ser informados para alocar memória suficiente
+    c.servicosPrestados = (char **) malloc(n * sizeof(char *));
     if(c.servicosPrestados == NULL){
         perror("Erro ao realocar memória\n");
         return;
     }
+
+    //Aloca 200 caracteres de memória em cada posição do vetor de serviços para guardar o nome do serviço prestado
     for(int i = 0; i < n; i++){
-        c.servicosPrestados[i] = malloc(200 * sizeof(char));
+        c.servicosPrestados[i] = (char *) malloc(200 * sizeof(char));
         if(c.servicosPrestados[i] == NULL){
             perror("Erro ao realocar memória\n");
             return;
         }
+        //Ao alocar memória, já solicita ao usuário a informação que será armazenada na memória alocada
         printf("Informe o nome do %d˚serviço: ", i+1);
         scanf(" %[^\n]s", c.servicosPrestados[i]);
     }
 
+    //Armazena o colaborador no vetor
     p[qtdColab] = c;
     printf("Colaborador inserido com sucesso! ID: %ld\n", c.id);
-    qtdColab++;
+    qtdColab++; //Indica que houve um aumento na quantidade de colaboradores
 }
 
 //Listando todos os Colaboradores
@@ -72,16 +89,16 @@ void alterarColabs(Colab *colabs){
     scanf("%d",&idBusca);
 
     int colabEncontrado = 0;
-    for(int i=0;i<qtdCliente;i++){
+    for(int i = 0; i < qtdColab; i++){
 
-        if(strcmp(Colab[i].id,idBusca) == 0){
+        if(strcmp(colabs[i].id,idBusca) == 0){
             printf("\nInforme o novo nome do Colaborador: ");
-            scanf("%[^\n]s",colab[i].nome);
+            scanf("%[^\n]s",colabs[i].nome);
             printf("\nInforme o novo celular do Colaborador (00900000000): ");
-            scanf("%ld",&Colab[i].celular);
+            scanf("%ld",&colabs[i].celular);
             getchar();
             printf("\nInforme o(s) novo(s) servico(s) prestado(s) pelo Colaborador: ");
-            scanf("%[^\n]s",Colab[i].servicoPrestados);
+            //scanf("%[^\n]s",colabs[i].servicoPrestados);
 
             printf("\n\nColaborador alterado com sucesso!\n\n");
             colabEncontrado = 1;

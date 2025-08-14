@@ -1,4 +1,4 @@
-#include <cliente.h>
+#include "../headers/cliente.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,7 +12,7 @@ int capacidade = 0; //Gerencia a capacidade do vetor de clientes (tamanho total 
 void inserirCliente(Cliente *p){
     if(qtdCliente >= capacidade){ //Verifica se existem clientes suficientes para preencher completamente o vetor
         capacidade += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
-        p = realloc(p, capacidade * sizeof(Cliente)); //Realoca memória de acordo com o bloco
+        p = (Cliente *) realloc(p, capacidade * sizeof(Cliente)); //Realoca memória de acordo com o bloco
         if(p == NULL){ //Verifica se a alocação foi bem sucedida
             perror("Erro ao realocar memória\n");
             return;
@@ -44,7 +44,7 @@ void inserirCliente(Cliente *p){
     //Armazena o cliente criado no vetor
     p[qtdCliente] = c;
     printf("Cliente inserido com sucesso!\n");
-    qtdCliente++;
+    qtdCliente++; //Indica que houve um aumento no número de clientes
 }
 
 //Listando todos os Clientes
@@ -77,7 +77,7 @@ void alterarClientes(Cliente *clientes){
     int clienteEncontrado = 0;
     for(int i=0;i<qtdCliente;i++){
 
-        if(strcmp(Cliente[i].cpf,cpfBusca) == 0){
+        if(strcmp(clientes[i].cpf,cpfBusca) == 0){
             printf("\n\nCliente encontrado! Por favor, insira as novas informações\n");
             printf("Informe o novo nome do cliente: ");
             scanf("%[^\n]s",clientes[i].nome);
