@@ -23,13 +23,13 @@ void menuClientes() {
 
         switch(opcao) {
             case 1:
-                inserirCliente(clientes);
+                inserirCliente(&clientes);
                 break;
             case 2:
                 listarClientes(clientes);
                 break;
             case 3:
-                alterarClientes(clientes);
+                alterarClientes(&clientes);
                 break;
             case 4:
                 //removerClientes(clientes);
@@ -57,13 +57,13 @@ void menuColabs() {
 
         switch(opcao) {
             case 1:
-                inserirColab(colabs);
+                inserirColab(&colabs);
                 break;
             case 2:
                 listarColabs(colabs);
                 break;
             case 3:
-                alterarColabs(colabs);
+                alterarColabs(&colabs);
                 break;
             case 4:
                 //removerColabs(colabs);

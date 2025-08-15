@@ -9,11 +9,11 @@ int qtdCliente = 0; //Gerencia a quantidade de clientes existentes
 int capacidadeCl = 0; //Gerencia a capacidade do vetor de clientes (tamanho total alocado)
 
 //Cadastrando cliente
-void inserirCliente(Cliente *p){
+void inserirCliente(Cliente **p){
     if(qtdCliente >= capacidadeCl){ //Verifica se existem clientes suficientes para preencher completamente o vetor
         capacidadeCl += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
-        p = (Cliente *) realloc(p, capacidadeCl * sizeof(Cliente)); //Realoca memória de acordo com o bloco
-        if(p == NULL){ //Verifica se a alocação foi bem sucedida
+        *p = (Cliente *) realloc(*p, capacidadeCl * sizeof(Cliente)); //Realoca memória de acordo com o bloco
+        if(*p == NULL){ //Verifica se a alocação foi bem sucedida
             perror("Erro ao realocar memória\n");
             return;
         }
@@ -26,7 +26,7 @@ void inserirCliente(Cliente *p){
 
     //Verifica se existe algum cadastro com a chave primária informada
     for(int i = 0; i < qtdCliente; i++){
-        if(p[i].cpf == c.cpf){
+        if(strcmp((*p)[i].cpf, c.cpf) == 0){
             perror("CPF já cadastrado.\n");
             return;
         }
@@ -42,7 +42,7 @@ void inserirCliente(Cliente *p){
     scanf(" %[^\n]s", c.dataIntegracao);
 
     //Armazena o cliente criado no vetor
-    p[qtdCliente] = c;
+    (*p)[qtdCliente] = c;
     printf("Cliente inserido com sucesso!\n");
     qtdCliente++; //Indica que houve um aumento no número de clientes
 }
@@ -64,30 +64,32 @@ void listarClientes(Cliente *clientes) {
 }
 
 //Alterar as informações do Cliente
-void alterarClientes(Cliente *clientes){
+void alterarClientes(Cliente **clientes){
     if (qtdCliente == 0){
         printf("\nNenhum cliente cadastrado.\n\n");
         return;
     }
 
-    char cpfBusca[14];
-    printf("\n\nInforme o CPF do Cliente que deseja alterar (000.000.000-00): ");
-    scanf("%[^\n]s",cpfBusca);
+    char cpfBusca[15];
+    printf("Informe o CPF do Cliente que deseja alterar (000.000.000-00): ");
+    scanf(" %[^\n]s",cpfBusca);
 
     int clienteEncontrado = 0;
-    for(int i=0;i<qtdCliente;i++){
 
-        if(strcmp(clientes[i].cpf,cpfBusca) == 0){
-            printf("\n\nCliente encontrado! Por favor, insira as novas informações\n");
+    for(int i = 0; i < qtdCliente; i++){
+        if(strcmp((*clientes)[i].cpf, cpfBusca) == 0){
+            printf("Cliente encontrado! Por favor, insira as novas informações\n");
+
             printf("Informe o novo nome do cliente: ");
-            scanf("%[^\n]s",clientes[i].nome);
-            printf("\nInforme o novo celular do cliente (00900000000): ");
-            scanf("%ld",&clientes[i].celular);
-            getchar();
-            printf("\nInforme a nova data do cadastro (dd/MM/YY): ");
-            scanf("%[^\n]",clientes[i].dataIntegracao);
+            scanf(" %[^\n]s",(*clientes)[i].nome);
 
-            printf("\n\nCliente alterado com sucesso!\n\n");
+            printf("\nInforme o novo celular do cliente (00900000000): ");
+            scanf("%ld",&(*clientes)[i].celular);
+            
+            printf("\nInforme a nova data do cadastro (dd/MM/YY): ");
+            scanf(" %[^\n]",(*clientes)[i].dataIntegracao);
+
+            printf("\nCliente alterado com sucesso!\n");
             clienteEncontrado = 1;
             break;
         }
