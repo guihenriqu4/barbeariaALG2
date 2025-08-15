@@ -49,17 +49,18 @@ void inserirCliente(Cliente **p){
 
 //Listando todos os Clientes
 void listarClientes(Cliente *clientes) {
+    //Verifica se existem clientes cadastrados
     if (qtdCliente == 0) {
         printf("Nenhum cliente cadastrado.\n\n");
         return;
     }
-
+    //Percorre o vetor de clientes e imprime as informações de cada um
     for (int i = 0; i < qtdCliente; i++) {
-        printf("---Cliente %d---\n", i + 1);
-        printf("CPF: %s\n", clientes[i].cpf);
-        printf("Nome: %s\n", clientes[i].nome);
-        printf("Celular: %lld\n", clientes[i].celular);
-        printf("Data de integracao: %s\n\n", clientes[i].dataIntegracao);
+        printf("-- Cliente %d --\n", i + 1);
+        printf(" CPF: %s\n", clientes[i].cpf);
+        printf(" Nome: %s\n", clientes[i].nome);
+        printf(" Celular: %lld\n", clientes[i].celular);
+        printf(" Data de integracao: %s\n\n", clientes[i].dataIntegracao);
     }
 }
 

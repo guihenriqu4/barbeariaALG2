@@ -62,19 +62,29 @@ void inserirColab(Colab **p) {
 
 //Listando todos os Colaboradores
 void listarColabs(Colab *colabs) {
+    //Verifica se existem colaboradores cadastrados
     if (qtdColab == 0) {
         printf("Nenhum colaborador cadastrado.\n\n");
         return;
     }
 
+    //Percorre o vetor de colaboradores e imprime as informações de cada um
     for (int i = 0; i < qtdColab; i++) {
-        printf("--Colaborador %d--\n", i + 1);
-        printf("ID: %d\n", colabs[i].id);
-        printf("Nome: %s\n", colabs[i].nome);
-        printf("Celular: %lld\n", colabs[i].celular);
-        printf("Servicos prestados:\n");
-        for (int j = 0; j < colabs[i].nServicos; j++)
-            printf("- %s\n", colabs[i].servicosPrestados[j]);
+        printf("-- Colaborador %d --\n", i + 1);
+        printf(" ID: %d\n", colabs[i].id);
+        printf(" Nome: %s\n", colabs[i].nome);
+        printf(" Celular: %lld\n", colabs[i].celular);
+
+        //Verifica se o colaborador possui serviços prestados
+        if(colabs[i].nServicos == 0) {
+            printf(" Nenhum serviço prestado.\n");
+            continue;
+        }
+        else{
+            printf(" Servicos prestados:\n");
+            for(int j = 0; j < colabs[i].nServicos; j++)
+                printf("%d: %s\n", j, colabs[i].servicosPrestados[j]);
+        }
         printf("\n");
     }
 }
