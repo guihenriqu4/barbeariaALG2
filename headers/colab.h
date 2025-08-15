@@ -6,6 +6,7 @@ typedef struct {
     char nome[50];
     long int celular;
     char **servicosPrestados;
+    int nServicos;
 }Colab;
 
 void inserirColab(Colab **p);
