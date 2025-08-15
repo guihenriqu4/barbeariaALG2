@@ -100,16 +100,22 @@ void alterarColabs(Colab **colabs){
             printf("\nInforme quantos servicos esse colaborador prestará: ");
             scanf("%d",&N);
 
-            (*colabs)[i].servicosPrestados = (char**)realloc((*colabs), N*sizeof(char*));
+            for(int j=0;j<(*colabs)[i].nServicos;j++){
+                free((*colabs)[i].servicosPrestados[j]);
+            }
+
+            (*colabs)[i].servicosPrestados = (char**)realloc((*colabs)[i].servicosPrestados, N*sizeof(char*));
             if((*colabs)[i].servicosPrestados == NULL){
-                perror("\nErro ao realocar memoria!\n");
+                perror("\nErro ao realocar memoria para os servicos!\n");
                 return;
             }
+
+            (*colabs)[i].nServicos=N;
 
             for(int j=0;j<N;j++){
                 (*colabs)[i].servicosPrestados[j] = (char *)malloc(200 * sizeof(char));
                 if((*colabs)[i].servicosPrestados[j] == NULL){
-                    perror("\nErro ao realocar memoria\n");
+                    perror("\nErro ao realocar memoria para a string de servico\n");
                     return;
                     }
 
