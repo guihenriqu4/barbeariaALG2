@@ -176,30 +176,30 @@
 
 //         if(agend[i].id == idAgBusca){
 //             printf("\nInforme o novo CPF do Cliente(000.000.000-00): ");
-//             scanf("%[^\n]s",agend[i].cpfCliente);
+//             scanf(" %[^\n]s",agend[i].cpfCliente);
 //             printf("\nInforme o novo ID do Colaborador: ");
 //             scanf("%d",&agend[i].idColab);
 //             getchar();
 //             printf("\nInforme a nova data do agendamento(dd/MM/YY): ");
-//             scanf("%[^\n]s",agend[i].data);
+//             scanf(" %[^\n]s",agend[i].data);
 //             printf("\nInforme o novo horario do agendamento (HH:mm): ");
-//             scanf("%[^\n]s",agend[i].horario);
+//             scanf(" %[^\n]s",agend[i].horario);
 //             printf("\nInforme a quantidade de servicos desejados: ");
 //             scanf("%d",&N);
 //
-//             agend.servicoDesejado = (char**)realloc(N*sizeof(char*));
+//             agend.servicoDesejado = (char**)realloc((*agend)[i].servicoDesejado,N*sizeof(char*));
 //             if(agend.servicoDesejado == NULL){
 //                perror("\nErro ao realocar memoria\n");
 //                return;
 //             }
 //             for(int j=0;j<N;j++){
-//                agend.servicoDesejado[j] = (char*)malloc(200*sizeof(char));
-//                if(agend.servicoDesejado == NULL){
+//                (*agend)[i].servicoDesejado[j] = (char*)malloc(200*sizeof(char));
+//                if((*agend)[i].servicoDesejado[j] == NULL){
 //                    perror("\nErro ao realocar memoria!\n");
 //                    return;
 //                }
 //             printf("\nInforme o %d˚ servico desejado: ",j+1);
-//             scanf("%[^\n]s",agend.servicoDesejado[j]);
+//             scanf(" %[^\n]s",(*agend)[i].servicoDesejado[j]);
 //
 //             }
 //             printf("\n\nAgendamento alterado com sucesso!\n\n");

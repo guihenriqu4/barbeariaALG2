@@ -4,7 +4,7 @@
 typedef struct{
     char cpf[15]; //formato 000.000.000-00
     char nome[200];
-    long int celular; //formato 00900000000
+    long long int celular; //formato 00900000000
     char dataIntegracao[9]; //formato dd/MM/YY
 }Cliente;
 

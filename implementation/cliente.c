@@ -36,7 +36,7 @@ void inserirCliente(Cliente **p){
     scanf(" %[^\n]s", c.nome);
 
     printf("Informe o celular do cliente (00900000000): ");
-    scanf("%ld", &c.celular);
+    scanf("%lld", &c.celular);
 
     printf("Informe a data do cadastro (dd/MM/YY): ");
     scanf(" %[^\n]s", c.dataIntegracao);
@@ -58,7 +58,7 @@ void listarClientes(Cliente *clientes) {
         printf("---Cliente %d---\n", i + 1);
         printf("CPF: %s\n", clientes[i].cpf);
         printf("Nome: %s\n", clientes[i].nome);
-        printf("Celular: %ld\n", clientes[i].celular);
+        printf("Celular: %lld\n", clientes[i].celular);
         printf("Data de integracao: %s\n\n", clientes[i].dataIntegracao);
     }
 }
@@ -84,8 +84,8 @@ void alterarClientes(Cliente **clientes){
             scanf(" %[^\n]s",(*clientes)[i].nome);
 
             printf("\nInforme o novo celular do cliente (00900000000): ");
-            scanf("%ld",&(*clientes)[i].celular);
-            
+            scanf("%lld",&(*clientes)[i].celular);
+
             printf("\nInforme a nova data do cadastro (dd/MM/YY): ");
             scanf(" %[^\n]",(*clientes)[i].dataIntegracao);
 
