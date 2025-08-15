@@ -33,6 +33,8 @@ void inserirColab(Colab **p) {
     printf("Informe quantos serviços esse colaborador prestará: ");
     scanf("%d", &n);
 
+    c.nServicos = n;
+
     //Serviços prestados é uma matriz visto que é um vetor (char) de vetores (também do tipo char). Portanto, é necessário solicitar a informação de quantos serviços vão ser informados para alocar memória suficiente
     c.servicosPrestados = (char **) malloc(n * sizeof(char *));
     if(c.servicosPrestados == NULL){
@@ -71,7 +73,7 @@ void listarColabs(Colab *colabs) {
         printf("Nome: %s\n", colabs[i].nome);
         printf("Celular: %ld\n", colabs[i].celular);
         printf("Servicos prestados:\n");
-        for (int j = 0; colabs[i].servicosPrestados[j] != NULL; j++)
+        for (int j = 0; j < colabs[i].nServicos; j++)
             printf("- %s\n", colabs[i].servicosPrestados[j]);
         printf("\n");
     }
