@@ -28,7 +28,7 @@ void inserirColab(Colab **p) {
     scanf(" %[^\n]s", c.nome);
 
     printf("Informe o celular do colaborador (00900000000): ");
-    scanf("%ld", &c.celular);
+    scanf("%lld", &c.celular);
 
     printf("Informe quantos serviços esse colaborador prestará: ");
     scanf("%d", &n);
@@ -71,7 +71,7 @@ void listarColabs(Colab *colabs) {
         printf("--Colaborador %d--\n", i + 1);
         printf("ID: %d\n", colabs[i].id);
         printf("Nome: %s\n", colabs[i].nome);
-        printf("Celular: %ld\n", colabs[i].celular);
+        printf("Celular: %lld\n", colabs[i].celular);
         printf("Servicos prestados:\n");
         for (int j = 0; j < colabs[i].nServicos; j++)
             printf("- %s\n", colabs[i].servicosPrestados[j]);
@@ -98,7 +98,7 @@ void alterarColabs(Colab **colabs){
             printf("\nInforme o novo nome do Colaborador: ");
             scanf(" %[^\n]s",(*colabs)[i].nome);
             printf("\nInforme o novo celular do Colaborador (00900000000): ");
-            scanf("%ld",&(*colabs)[i].celular);
+            scanf("%lld",&(*colabs)[i].celular);
             printf("\nInforme quantos servicos esse colaborador prestará: ");
             scanf("%d",&N);
 
