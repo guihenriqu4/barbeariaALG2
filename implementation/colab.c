@@ -100,21 +100,21 @@ void alterarColabs(Colab *colabs){
             printf("\nInforme quantos servicos esse colaborador prestará: ");
             scanf("%d",&N);
 
-            colabs.servicoPrestados = (char**)realloc(N*sizeof(char*));
-            if(colabs.servicoPrestados == NULL){
+            colabs[i].servicosPrestados = (char**)realloc(colabs, N*sizeof(char*));
+            if(colabs[i].servicosPrestados == NULL){
                 perror("\nErro ao realocar memoria!\n");
                 return;
             }
 
             for(int j=0;j<N;j++){
-                colabs.servicosPrestados[j] = (char *)malloc(200 * sizeof(char));
-                if(colabs.servicosPrestados[j] == NULL){
+                colabs[i].servicosPrestados[j] = (char *)malloc(200 * sizeof(char));
+                if(colabs[i].servicosPrestados[j] == NULL){
                     perror("\nErro ao realocar memoria\n");
                     return;
                     }
 
                 printf("\nInforme o nome do %d˚servico: ", j+1);
-                scanf("%[^\n]s", colabs.servicosPrestados[j]);
+                scanf("%[^\n]s", colabs[i].servicosPrestados[j]);
             }
 
             printf("\n\nColaborador alterado com sucesso!\n\n");
@@ -124,6 +124,6 @@ void alterarColabs(Colab *colabs){
     }
 
     if(!colabEncontrado){
-        printf("Colaborador com ID %s nao encontrado.", idBusca);
+        printf("Colaborador com ID %d nao encontrado.", idBusca);
     }
 }

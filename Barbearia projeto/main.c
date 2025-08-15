@@ -4,9 +4,6 @@
 #include "../headers/cliente.h"
 #include "../headers/colab.h"
 #include "../headers/agendamento.h"
-#include "../implementation/cliente.c"
-#include "../implementation/colab.c"
-#include "../implementation/agendamento.c"
 
 Cliente *clientes = NULL;
 Colab *colabs = NULL;

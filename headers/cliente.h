@@ -8,4 +8,9 @@ typedef struct{
     char dataIntegracao[8]; //formato dd/MM/YY
 }Cliente;
 
+void inserirCliente(Cliente *p);
+void listarClientes(Cliente *clientes);
+void alterarClientes(Cliente *clientes);
+void removeClientes(Cliente *clientes);
+
 #endif
