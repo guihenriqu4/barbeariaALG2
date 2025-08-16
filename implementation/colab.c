@@ -145,3 +145,50 @@ void alterarColabs(Colab **colabs){
         printf("Colaborador com ID %d nao encontrado.", idBusca);
     }
 }
+
+void removerColabs(Colab **colabs) {
+    if (qtdColab == 0) {
+        printf("\nNenhum colaborador cadastrado para remover.\n\n");
+        return;
+    }
+
+    int idBusca;
+    printf("Informe o ID do colaborador que deseja remover: ");
+    scanf("%d", &idBusca);
+
+    int posicao = -1;
+    for (int i = 0; i < qtdColab; i++) {
+        if ((*colabs)[i].id == idBusca) {
+            posicao = i;
+            break;
+        }
+    }
+
+    if (posicao == -1) {
+        printf("\nColaborador com ID %d não encontrado.\n", idBusca);
+        return;
+    }
+
+    // Libera memória alocada para os serviços prestados do colaborador a remover
+    if ((*colabs)[posicao].servicosPrestados != NULL) {
+        for (int j = 0; (*colabs)[posicao].servicosPrestados[j] != NULL; j++) {
+            free((*colabs)[posicao].servicosPrestados[j]);
+        }
+        free((*colabs)[posicao].servicosPrestados);
+    }
+
+    // Substitui pelo último colaborador do vetor
+    (*colabs)[posicao] = (*colabs)[qtdColab - 1];
+    qtdColab--;
+
+    // Reduz a capacidade e realoca memória
+    capacidadeC--;
+    Colab *temp = realloc(*colabs, capacidadeC * sizeof(Colab));
+    if (temp != NULL || capacidadeC == 0) {
+        *colabs = temp;
+    } else {
+        printf("Erro ao realocar memória após remoção de colaborador");
+    }
+
+    printf("\nColaborador removido com sucesso!\n");
+}

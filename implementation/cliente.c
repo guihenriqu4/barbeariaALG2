@@ -100,3 +100,42 @@ void alterarClientes(Cliente **clientes){
         printf("\nCliente com CPF %s nao encontrado.\n",cpfBusca);
     }
 }
+
+void removerClientes(Cliente **clientes) {
+    if (qtdCliente == 0) {
+        printf("\nNenhum cliente cadastrado para remover.\n\n");
+        return;
+    }
+
+    char cpfBusca[14];
+    printf("Informe o CPF do cliente que deseja remover (000.000.000-00): ");
+    scanf(" %[^\n]s", cpfBusca);
+
+    int posicao = -1;
+    for (int i = 0; i < qtdCliente; i++) {
+        if (strcmp((*clientes)[i].cpf, cpfBusca) == 0) {
+            posicao = i;
+            break;
+        }
+    }
+
+    if (posicao == -1) {
+        printf("\nCliente com CPF %s não encontrado.\n", cpfBusca);
+        return;
+    }
+
+    // Substitui pelo último cliente do vetor
+    (*clientes)[posicao] = (*clientes)[qtdCliente - 1];
+    qtdCliente--;
+
+    // Diminui a capacidade em 1 posição e realoca
+    capacidadeCl--;
+    Cliente *temp = realloc(*clientes, capacidadeCl * sizeof(Cliente));
+    if (temp != NULL || capacidadeCl == 0) { 
+        *clientes = temp; // atualiza o ponteiro se realloc funcionar
+    } else {
+        printf("Erro ao realocar memória após remoção");
+    }
+
+    printf("\nCliente removido com sucesso!\n");
+}
