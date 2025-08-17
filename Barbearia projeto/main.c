@@ -32,7 +32,7 @@ void menuClientes() {
                 alterarClientes(&clientes);
                 break;
             case 4:
-                //removerClientes(clientes);
+                removerClientes(clientes);
                 break;
             case 5:
                 break;
@@ -66,7 +66,7 @@ void menuColabs() {
                 alterarColabs(&colabs);
                 break;
             case 4:
-                //removerColabs(colabs);
+                removerColabs(colabs);
                 break;
             case 5:
                 break;
