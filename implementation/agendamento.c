@@ -214,49 +214,48 @@
 //     }
 // }
 
-void removerAgendamentos(Agendamento **agendamentos) {
-    if (qtdAgen == 0) {
-        printf("\nNenhum agendamento para remover.\n\n");
-        return;
-    }
-
-    long int idBusca;
-    printf("Informe o ID do agendamento que deseja remover: ");
-    scanf("%ld", &idBusca);
-
-    int posicao = -1;
-    for (int i = 0; i < qtdAgen; i++) {
-        if ((*agendamentos)[i].id == idBusca) {
-            posicao = i;
-            break;
-        }
-    }
-
-    if (posicao == -1) {
-        printf("\nAgendamento com ID %ld não encontrado.\n", idBusca);
-        return;
-    }
-
-    // Libera memória do agendamento que será removido
-    if ((*agendamentos)[posicao].servicoDesejado != NULL) {
-        for (int j = 0; (*agendamentos)[posicao].servicoDesejado[j] != NULL; j++) {
-            free((*agendamentos)[posicao].servicoDesejado[j]);
-        }
-        free((*agendamentos)[posicao].servicoDesejado);
-    }
-
-    // Substitui pelo último agendamento
-    (*agendamentos)[posicao] = (*agendamentos)[qtdAgen - 1];
-    qtdAgen--;
-
-    // Reduz capacidade em 1 e realoca memória
-    capacidadeA--;
-    Agendamento *temp = realloc(*agendamentos, capacidadeA * sizeof(Agendamento));
-    if (temp != NULL || capacidadeA == 0) {
-        *agendamentos = temp;
-    } else {
-        printf("Erro ao realocar memória após remoção de agendamento");
-    }
-
-    printf("\nAgendamento removido com sucesso!\n");
-}
+//void removerAgendamentos(Agendamento **agendamentos) {
+//    if (qtdAgen == 0) {
+//        printf("\nNenhum agendamento para remover.\n\n");
+//        return;
+//    }
+//
+//    long int idBusca;
+//    printf("Informe o ID do agendamento que deseja remover: ");
+//    scanf("%ld", &idBusca);
+//
+//    int posicao = -1;
+//    for (int i = 0; i < qtdAgen; i++) {
+//        if ((*agendamentos)[i].id == idBusca) {
+//            posicao = i;
+//            break;
+//        }
+//    }
+//
+//    if (posicao == -1) {
+//        printf("\nAgendamento com ID %ld não encontrado.\n", idBusca);
+//        return;
+//    }
+//
+//    // Libera memória do agendamento que será removido
+//    if ((*agendamentos)[posicao].servicoDesejado != NULL) {
+//        for (int j = 0; (*agendamentos)[posicao].servicoDesejado[j] != NULL; j++) {
+//            free((*agendamentos)[posicao].servicoDesejado[j]);
+//        }
+//        free((*agendamentos)[posicao].servicoDesejado);
+//    }
+//    // Substitui pelo último agendamento
+//   (*agendamentos)[posicao] = (*agendamentos)[qtdAgen - 1];
+//    qtdAgen--;
+//
+//    // Reduz capacidade em 1 e realoca memória
+//    capacidadeA--;
+//    Agendamento *temp = realloc(*agendamentos, capacidadeA * sizeof(Agendamento));
+//    if (temp != NULL || capacidadeA == 0) {
+//        *agendamentos = temp;
+//  } else {
+//     printf("Erro ao realocar memória após remoção de agendamento");
+//    }
+//
+//    printf("\nAgendamento removido com sucesso!\n");
+//}

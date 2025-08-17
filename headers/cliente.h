@@ -11,6 +11,6 @@ typedef struct{
 void inserirCliente(Cliente **p);
 void listarClientes(Cliente *clientes);
 void alterarClientes(Cliente **clientes);
-void removeClientes(Cliente *clientes);
+void removerClientes(Cliente *clientes);
 
 #endif

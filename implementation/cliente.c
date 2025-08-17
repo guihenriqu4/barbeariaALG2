@@ -66,19 +66,19 @@ void listarClientes(Cliente *clientes) {
 
 //Alterar as informações do Cliente
 void alterarClientes(Cliente **clientes){
-    if (qtdCliente == 0){
+    if (qtdCliente == 0){//Garante que tem algum cliente cadastrado
         printf("\nNenhum cliente cadastrado.\n\n");
         return;
     }
 
     char cpfBusca[15];
     printf("Informe o CPF do Cliente que deseja alterar (000.000.000-00): ");
-    scanf(" %[^\n]s",cpfBusca);
+    scanf(" %[^\n]s",cpfBusca);//Recebe o CPF para saber qual será alterado
 
     int clienteEncontrado = 0;
 
     for(int i = 0; i < qtdCliente; i++){
-        if(strcmp((*clientes)[i].cpf, cpfBusca) == 0){
+        if(strcmp((*clientes)[i].cpf, cpfBusca) == 0){//Encontra o CPF do cliente desejado para ser alterado
             printf("Cliente encontrado! Por favor, insira as novas informações\n");
 
             printf("Informe o novo nome do cliente: ");
@@ -90,13 +90,13 @@ void alterarClientes(Cliente **clientes){
             printf("\nInforme a nova data do cadastro (dd/MM/YY): ");
             scanf(" %[^\n]",(*clientes)[i].dataIntegracao);
 
-            printf("\nCliente alterado com sucesso!\n");
-            clienteEncontrado = 1;
+            printf("\nCliente alterado com sucesso!\n");//Garante ao usuario que a alteração tenha sido concluida
+            clienteEncontrado = 1;//Mostra que o cliente foi encontrado
             break;
         }
     }
 
-    if(!clienteEncontrado){
+    if(!clienteEncontrado){//Caso o usuario tenha digitado errado o CPF, ou simplesmente não exista esse CPF no armazenamento
         printf("\nCliente com CPF %s nao encontrado.\n",cpfBusca);
     }
 }
@@ -131,7 +131,7 @@ void removerClientes(Cliente **clientes) {
     // Diminui a capacidade em 1 posição e realoca
     capacidadeCl--;
     Cliente *temp = realloc(*clientes, capacidadeCl * sizeof(Cliente));
-    if (temp != NULL || capacidadeCl == 0) { 
+    if (temp != NULL || capacidadeCl == 0) {
         *clientes = temp; // atualiza o ponteiro se realloc funcionar
     } else {
         printf("Erro ao realocar memória após remoção");

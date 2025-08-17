@@ -91,20 +91,20 @@ void listarColabs(Colab *colabs) {
 
 //Alterando as informações dos Colaboradores
 void alterarColabs(Colab **colabs){
-    if (qtdColab == 0){
+    if (qtdColab == 0){//Verifica se há colaboradores cadastrados
        printf("\nNenhum colaborador cadastrado.\n\n");
        return;
     }
 
     int idBusca;
-    printf("\nInforme o ID do Colaborador que deseja alterar: ");
+    printf("\nInforme o ID do Colaborador que deseja alterar: ");//Recebe o ID (modo de identificar um colaborador) para saber qual será alterado
     scanf("%d",&idBusca);
 
     int colabEncontrado = 0;
     int N;
     for(int i = 0; i < qtdColab; i++){
 
-        if((*colabs)[i].id == idBusca){
+        if((*colabs)[i].id == idBusca){//Encontra o ID do colaborador desejado
             printf("\nInforme o novo nome do Colaborador: ");
             scanf(" %[^\n]s",(*colabs)[i].nome);
             printf("\nInforme o novo celular do Colaborador (00900000000): ");
@@ -112,20 +112,20 @@ void alterarColabs(Colab **colabs){
             printf("\nInforme quantos servicos esse colaborador prestará: ");
             scanf("%d",&N);
 
-            for(int j=0;j<(*colabs)[i].nServicos;j++){
-                free((*colabs)[i].servicosPrestados[j]);
+            for(int j=0;j<(*colabs)[i].nServicos;j++){//Saber se a quantidade de serviços prestados pelo colaborador será menor que anteriormente.
+                free((*colabs)[i].servicosPrestados[j]);//Se for menor que anteriormente, libera o espaço que estava armazenado(já que não será utilizado)
             }
 
-            (*colabs)[i].servicosPrestados = (char**)realloc((*colabs)[i].servicosPrestados, N*sizeof(char*));
-            if((*colabs)[i].servicosPrestados == NULL){
+            (*colabs)[i].servicosPrestados = (char**)realloc((*colabs)[i].servicosPrestados, N*sizeof(char*));//Realoca a memória para a quantidade que precisará, para que nao sobre.
+            if((*colabs)[i].servicosPrestados == NULL){//Verifica se a realocação ocorreu corretamente
                 perror("\nErro ao realocar memoria para os servicos!\n");
                 return;
             }
 
-            (*colabs)[i].nServicos=N;
+            (*colabs)[i].nServicos=N;//nServicos recebe a quantidade de serviços que o colaborador terá agora
 
             for(int j=0;j<N;j++){
-                (*colabs)[i].servicosPrestados[j] = (char *)malloc(200 * sizeof(char));
+                (*colabs)[i].servicosPrestados[j] = (char *)malloc(200 * sizeof(char));//Aloca a memoria para a string que usa ao receber os serviços prestados
                 if((*colabs)[i].servicosPrestados[j] == NULL){
                     perror("\nErro ao realocar memoria para a string de servico\n");
                     return;
@@ -135,17 +135,18 @@ void alterarColabs(Colab **colabs){
                 scanf(" %[^\n]s", (*colabs)[i].servicosPrestados[j]);
             }
 
-            printf("\n\nColaborador alterado com sucesso!\n\n");
-            colabEncontrado = 1;
+            printf("\n\nColaborador alterado com sucesso!\n\n");//Garante para o usuario que ocorreu tudo certo
+            colabEncontrado = 1;//Sinaliza que o colaborador foi encontrado
             break;
         }
     }
 
-    if(!colabEncontrado){
+    if(!colabEncontrado){//Se nao existir o CPF, ou o usario tenha digitado algo errado
         printf("Colaborador com ID %d nao encontrado.", idBusca);
     }
 }
 
+//Deletando algum colaborador
 void removerColabs(Colab **colabs) {
     if (qtdColab == 0) {
         printf("\nNenhum colaborador cadastrado para remover.\n\n");
