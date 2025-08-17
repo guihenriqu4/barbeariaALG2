@@ -15,7 +15,7 @@ void inserirColab(Colab **p) {
         capacidadeC += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
         (*p) = (Colab *) realloc((*p), capacidadeC * sizeof(Colab)); //Realoca memória de acordo com o bloco
         if(p == NULL){ //Verifica se a alocação foi bem sucedida
-            perror("Erro ao realocar memória\n");
+            perror("Erro ao realocar memoria\n");
             return;
         }
     }
@@ -30,7 +30,7 @@ void inserirColab(Colab **p) {
     printf("Informe o celular do colaborador (00900000000): ");
     scanf("%lld", &c.celular);
 
-    printf("Informe quantos serviços esse colaborador prestará: ");
+    printf("Informe a quantidade de servicos que esse colaborador presta: ");
     scanf("%d", &n);
 
     c.nServicos = n;
@@ -38,7 +38,7 @@ void inserirColab(Colab **p) {
     //Serviços prestados é uma matriz visto que é um vetor (char) de vetores (também do tipo char). Portanto, é necessário solicitar a informação de quantos serviços vão ser informados para alocar memória suficiente
     c.servicosPrestados = (char **) malloc(n * sizeof(char *));
     if(c.servicosPrestados == NULL){
-        perror("Erro ao realocar memória\n");
+        perror("Erro ao realocar memoria\n");
         return;
     }
 
@@ -46,11 +46,11 @@ void inserirColab(Colab **p) {
     for(int i = 0; i < n; i++){
         c.servicosPrestados[i] = (char *) malloc(200 * sizeof(char));
         if(c.servicosPrestados[i] == NULL){
-            perror("Erro ao realocar memória\n");
+            perror("Erro ao realocar memoria\n");
             return;
         }
         //Ao alocar memória, já solicita ao usuário a informação que será armazenada na memória alocada
-        printf("Informe o nome do %d˚serviço: ", i+1);
+        printf("Informe o nome do servico %d: ", i+1);
         scanf(" %[^\n]s", c.servicosPrestados[i]);
     }
 
@@ -77,13 +77,13 @@ void listarColabs(Colab *colabs) {
 
         //Verifica se o colaborador possui serviços prestados
         if(colabs[i].nServicos == 0) {
-            printf(" Nenhum serviço prestado.\n");
+            printf(" Nenhum servico prestado.\n");
             continue;
         }
         else{
             printf(" Servicos prestados:\n");
             for(int j = 0; j < colabs[i].nServicos; j++)
-                printf("%d: %s\n", j, colabs[i].servicosPrestados[j]);
+                printf("%d: %s\n", j+1, colabs[i].servicosPrestados[j]);
         }
         printf("\n");
     }
@@ -109,7 +109,7 @@ void alterarColabs(Colab **colabs){
             scanf(" %[^\n]s",(*colabs)[i].nome);
             printf("\nInforme o novo celular do Colaborador (00900000000): ");
             scanf("%lld",&(*colabs)[i].celular);
-            printf("\nInforme quantos servicos esse colaborador prestará: ");
+            printf("\nInforme a nova quantidade de servicos que esse colaborador presta: ");
             scanf("%d",&N);
 
             for(int j=0;j<(*colabs)[i].nServicos;j++){//Saber se a quantidade de serviços prestados pelo colaborador será menor que anteriormente.
@@ -131,7 +131,7 @@ void alterarColabs(Colab **colabs){
                     return;
                     }
 
-                printf("\nInforme o nome do %d˚servico: ", j+1);
+                printf("\nInforme o nome do servico %d: ", j+1);
                 scanf(" %[^\n]s", (*colabs)[i].servicosPrestados[j]);
             }
 
@@ -166,13 +166,13 @@ void removerColabs(Colab **colabs) {
     }
 
     if (posicao == -1) {
-        printf("\nColaborador com ID %d não encontrado.\n", idBusca);
+        printf("\nColaborador com ID %d nao encontrado.\n", idBusca);
         return;
     }
 
     // Libera memória alocada para os serviços prestados do colaborador a remover
     if ((*colabs)[posicao].servicosPrestados != NULL) {
-        for (int j = 0; (*colabs)[posicao].servicosPrestados[j] != NULL; j++) {
+        for (int j = 0; j < (*colabs)[posicao].nServicos; j++) {
             free((*colabs)[posicao].servicosPrestados[j]);
         }
         free((*colabs)[posicao].servicosPrestados);
@@ -188,7 +188,7 @@ void removerColabs(Colab **colabs) {
     if (temp != NULL || capacidadeC == 0) {
         *colabs = temp;
     } else {
-        printf("Erro ao realocar memória após remoção de colaborador");
+        printf("Erro ao realocar memoria apos remocao de colaborador");
     }
 
     printf("\nColaborador removido com sucesso!\n");

@@ -14,7 +14,7 @@ void inserirCliente(Cliente **p){
         capacidadeCl += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
         *p = (Cliente *) realloc(*p, capacidadeCl * sizeof(Cliente)); //Realoca memória de acordo com o bloco
         if(*p == NULL){ //Verifica se a alocação foi bem sucedida
-            perror("Erro ao realocar memória\n");
+            perror("Erro ao realocar memoria\n");
             return;
         }
     }
@@ -27,7 +27,7 @@ void inserirCliente(Cliente **p){
     //Verifica se existe algum cadastro com a chave primária informada
     for(int i = 0; i < qtdCliente; i++){
         if(strcmp((*p)[i].cpf, c.cpf) == 0){
-            perror("CPF já cadastrado.\n");
+            perror("CPF ja cadastrado.\n");
             return;
         }
     }
@@ -79,7 +79,7 @@ void alterarClientes(Cliente **clientes){
 
     for(int i = 0; i < qtdCliente; i++){
         if(strcmp((*clientes)[i].cpf, cpfBusca) == 0){//Encontra o CPF do cliente desejado para ser alterado
-            printf("Cliente encontrado! Por favor, insira as novas informações\n");
+            printf("Cliente encontrado! Por favor, insira as novas informacoes\n");
 
             printf("Informe o novo nome do cliente: ");
             scanf(" %[^\n]s",(*clientes)[i].nome);
@@ -120,7 +120,7 @@ void removerClientes(Cliente **clientes) {
     }
 
     if (posicao == -1) {
-        printf("\nCliente com CPF %s não encontrado.\n", cpfBusca);
+        printf("\nCliente com CPF %s nao encontrado.\n", cpfBusca);
         return;
     }
 
@@ -134,7 +134,7 @@ void removerClientes(Cliente **clientes) {
     if (temp != NULL || capacidadeCl == 0) {
         *clientes = temp; // atualiza o ponteiro se realloc funcionar
     } else {
-        printf("Erro ao realocar memória após remoção");
+        printf("Erro ao realocar memoria apos remocao");
     }
 
     printf("\nCliente removido com sucesso!\n");
