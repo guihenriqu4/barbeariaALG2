@@ -5,8 +5,8 @@
 
 #define INCREMENTO 5 //Número constante que incrementará as posições em blocos de 5
 
-int qtdCliente = 0; //Gerencia a quantidade de clientes existentes
-int capacidadeCl = 0; //Gerencia a capacidade do vetor de clientes (tamanho total alocado)
+int qtdCliente = 10; //Gerencia a quantidade de clientes existentes
+int capacidadeCl = 15; //Gerencia a capacidade do vetor de clientes (tamanho total alocado)
 
 //Cadastrando cliente
 void inserirCliente(Cliente **p){

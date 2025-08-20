@@ -5,9 +5,9 @@
 
 #define INCREMENTO 5 //Número constante que incrementará as posições em blocos de 5
 
-int qtdColab = 0; //Gerencia a quantidade de colaboradores existentes
-int capacidadeC = 0; //Gerencia a capacidade do vetor de colaboradores (tamanho total alocado)
-int id = 0; //Utilizado para vincular identificadores aos colaboradores
+int qtdColab = 10; //Gerencia a quantidade de colaboradores existentes
+int capacidadeC = 15; //Gerencia a capacidade do vetor de colaboradores (tamanho total alocado)
+int id = 10; //Utilizado para vincular identificadores aos colaboradores
 
 //Cadastrando colaborador
 void inserirColab(Colab **p) {

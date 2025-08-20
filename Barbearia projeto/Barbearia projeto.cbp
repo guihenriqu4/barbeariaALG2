@@ -25,9 +25,6 @@
 		<Unit filename="../headers/agendamento.h" />
 		<Unit filename="../headers/cliente.h" />
 		<Unit filename="../headers/colab.h" />
-		<Unit filename="../implementation/agendamento.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="../implementation/cliente.c">
 			<Option compilerVar="CC" />
 		</Unit>
