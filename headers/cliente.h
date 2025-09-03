@@ -1,6 +1,8 @@
 #ifndef CLIENTE_H
 #define CLIENTE_H
 
+#include <stdio.h>
+
 typedef struct{
     char cpf[15]; //formato 000.000.000-00
     char nome[200];
@@ -8,7 +10,7 @@ typedef struct{
     char dataIntegracao[9]; //formato dd/MM/YY
 }Cliente;
 
-void inserirCliente(Cliente **p);
+void inserirCliente(Cliente **p, FILE *fcliente);
 void listarClientes(Cliente *clientes);
 void alterarClientes(Cliente **clientes);
 void removerClientes(Cliente **clientes);

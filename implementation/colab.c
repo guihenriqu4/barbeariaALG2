@@ -10,8 +10,20 @@ int capacidadeC = 15; //Gerencia a capacidade do vetor de colaboradores (tamanho
 int id = 10; //Utilizado para vincular identificadores aos colaboradores
 
 //Cadastrando colaborador
-void inserirColab(Colab **p) {
+void inserirColab(Colab **p, FILE *fcolab) {
     if(qtdColab >= capacidadeC){ //Verifica se existem colaboradores suficientes para preencher completamente o vetor
+
+        fcolab = fopen("clientes.txt", "wb"); //Abre um arquivo binário colaboradores
+        if(fcolab == NULL){ //Verifica se houve algum erro na abertura do arquivo
+            perror("Erro ao abrir o arquivo.");
+            exit(1);
+        }
+
+        int result = fwrite(*p, sizeof(Colab), qtdColab, fcolab); //Salva os dados do vetor colabs no arquivo binário
+        if(result < qtdColab) perror("Erro na gravacao de algum dos colaboradores."); //Verifica se houve algum erro na escrita
+
+        fclose(fcolab); //Fecha o arquivo
+
         capacidadeC += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
         (*p) = (Colab *) realloc((*p), capacidadeC * sizeof(Colab)); //Realoca memória de acordo com o bloco
         if(p == NULL){ //Verifica se a alocação foi bem sucedida

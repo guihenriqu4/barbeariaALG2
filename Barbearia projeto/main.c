@@ -5,6 +5,9 @@
 #include "../headers/colab.h"
 #include "../headers/agendamento.h"
 
+FILE *fcliente;
+FILE *fcolabs;
+FILE *fagen;
 Cliente *clientes = NULL;
 Colab *colabs = NULL;
 Agendamento *agendamentos = NULL;
@@ -218,7 +221,7 @@ void menuClientes() {
             // Se a leitura foi um sucesso, executa o switch
             switch(opcao) {
                 case 1:
-                    inserirCliente(&clientes);
+                    inserirCliente(&clientes, fcliente);
                     break;
                 case 2:
                     listarClientes(clientes);
@@ -266,7 +269,7 @@ void menuColabs() {
             // Se a leitura foi um sucesso, executa o switch
             switch(opcao) {
                 case 1:
-                    inserirColab(&colabs);
+                    inserirColab(&colabs, fcolabs);
                     break;
                 case 2:
                     listarColabs(colabs);

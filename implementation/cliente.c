@@ -9,8 +9,20 @@ int qtdCliente = 10; //Gerencia a quantidade de clientes existentes
 int capacidadeCl = 15; //Gerencia a capacidade do vetor de clientes (tamanho total alocado)
 
 //Cadastrando cliente
-void inserirCliente(Cliente **p){
+void inserirCliente(Cliente **p, FILE *fcliente){
     if(qtdCliente >= capacidadeCl){ //Verifica se existem clientes suficientes para preencher completamente o vetor
+
+        fcliente = fopen("clientes.txt", "wb"); //Abre um arquivo binário clientes
+        if(fcliente == NULL){ //Verifica se houve algum erro na abertura do arquivo
+            perror("Erro ao abrir o arquivo.");
+            exit(1);
+        }
+
+        int result = fwrite(*p, sizeof(Cliente), qtdCliente, fcliente); //Salva os dados do vetor clientes no arquivo binário
+        if(result < qtdCliente) perror("Erro na gravacao de algum dos clientes."); //Verifica se houve algum erro na escrita
+
+        fclose(fcliente); //Fecha o arquivo
+
         capacidadeCl += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
         *p = (Cliente *) realloc(*p, capacidadeCl * sizeof(Cliente)); //Realoca memória de acordo com o bloco
         if(*p == NULL){ //Verifica se a alocação foi bem sucedida

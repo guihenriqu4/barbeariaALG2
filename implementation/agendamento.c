@@ -5,12 +5,99 @@
 #include <stdlib.h>
 #include <string.h>
 
-// #define INCREMENTO 5
+#define INCREMENTO 5
 
 long int qtdAgen = 0;
 long int capacidadeA = 0;
 long int id = 1;
 
+//Cadastrando novo agendamento
+void inserirAgendamento(Agendamento **p, Cliente *clientes, int qtdClientes, Colab *colabs, int qtdColabs,FILE *fagen){
+    if(qtdAgen >= capacidadeA){ //Verifica se existem agendamentos suficientes para preencher completamente o vetor
+
+        fagen = fopen("agendamentos.txt", "wb"); //Abre um arquivo binário agendamentos
+        if(fagen == NULL){ //Verifica se houve algum erro na abertura do arquivo
+            perror("Erro ao abrir o arquivo.");
+            exit(1);
+        }
+
+        int result = fwrite(*p, sizeof(Agendamento), qtdAgen, fagen); //Salva os dados do vetor agendamentos no arquivo binário
+        if(result < qtdAgen) perror("Erro na gravacao de algum dos agendamentos."); //Verifica se houve algum erro na escrita
+
+        fclose(fagen); //Fecha o arquivo
+
+        capacidadeA += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
+        *p = (Agendamento *) realloc(*p, capacidadeA * sizeof(Agendamento)); //Realoca memória de acordo com o bloco
+        if(*p == NULL){ //Verifica se a alocação foi bem sucedida
+            perror("Erro ao realocar memória\n");
+            exit(1);
+        }
+    }
+
+    //Solicita as informações necessárias para inserir um novo cliente
+    long int n;
+    Agendamento a;
+    a.id = id++; //Atribui um identificador ao agendamento em uma sequência crescente
+    printf("Informe o CPF do cliente: ");
+    scanf(" %[^\n]s", a.cpfClinte);
+
+    //Verifica se o cliente existe antes de cadastrar o agendamento
+    int r = 0;
+    for(int i = 0; i < qtdClientes; i++){
+        if(strcmp(clientes[i].cpf, a.cpfClinte) == 0){
+            r = 1;
+            break;
+        }
+    }
+    if(r == 0){
+        perror("Cliente nao encontrado.");
+        exit(1);
+    }
+
+    printf("Informe o ID do colaborador: ");
+    scanf("%d", &a.idColab);
+
+    //Verifica se o cliente existe antes de cadastrar o agendamento
+    for(int i = 0; i < qtdColabs; i++){
+        if(colabs[i].id == a.idColab){
+            r = 1;
+            break;
+        }
+    }
+    if(r == 0){
+        perror("Colaborador nao encontrado.");
+        exit(1);
+    }
+
+    printf("Informe a data do agendamento (dd/MM//YY): ");
+    scanf(" %[^\n]s", &a.data);
+
+    printf("Informe o horário do agendamento (HH:mm): ");
+    scanf(" %[^\n]s", &a.horario);
+
+    printf("Informe quantos serviços foram solicitados: ");
+    scanf("%d", &n);
+
+    //Segue a mesma ideia do cadastro de serviços prestados na aba de colaboradores, ou seja, é uma matriz tendo em vista que é um vetor de vetores de caracteres
+    a.servicoDesejado = (char **) malloc(n * sizeof(char *));
+    if(a.servicoDesejado == NULL){
+        perror("Erro ao realocar memória\n");
+        exit(1);
+    }
+    for(int i = 0; i < n; i++){
+        a.servicoDesejado[i] = malloc(200 * sizeof(char));
+        if(a.servicoDesejado[i] == NULL){
+            perror("Erro ao realocar memória\n");
+            exit(1);
+        }
+        printf("Informe o nome do %d serviço: ", i+1);
+        scanf(" %[^\n]s", a.servicoDesejado[i]);
+    }
+
+    (*p)[qtdAgen] = a;
+    printf("Agendamento inserido com sucesso! ID: %ld\n", a.id);
+    qtdAgen++;
+}
 
 // CPF do cliente, retornando: Agendamentos ativos, nome e celular vinculados a esse CPF.
 // Colocar a struct Agendamento como parâmetro, junto a quantidade de agendamentos, struct Cliente e quantidade de clientes, por fim o CPF a ser buscado.
@@ -109,58 +196,6 @@ void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, int qtdAgendament
         printf("Nenhum agendamento encontrado para o ID do Colaborador %d.\n", idColab);
     }    
 }
-
-
-// //Cadastrando novo agendamento
-// void inserirAgendamento(Agendamento *p){
-//     if(qtdAgen >= capacidadeA){ //Verifica se existem agendamentos suficientes para preencher completamente o vetor
-//         capacidadeA += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
-//         p = (Agendamento *) (p, capacidadeA * sizeof(Agendamento)); //Realoca memória de acordo com o bloco
-//         if(p == NULL){ //Verifica se a alocação foi bem sucedida
-//             perror("Erro ao realocar memória\n");
-//             return;
-//         }
-//     }
-
-//     //Solicita as informações necessárias para inserir um novo cliente
-//     long int n;
-//     Agendamento a;
-//     a.id = id++; //Atribui um identificador ao agendamento em uma sequência crescente
-//     printf("Informe o CPF do cliente: ");
-//     scanf(" %[^\n]s", a.cpfClinte);
-
-//     printf("Informe o ID do colaborador: ");
-//     scanf("%d", &a.idColab);
-
-//     printf("Informe a data do agendamento (dd/MM//YY): ");
-//     scanf(" %[^\n]s", &a.data);
-
-//     printf("Informe o horário do agendamento (HH:mm): ");
-//     scanf(" %[^\n]s", &a.horario);
-
-//     printf("Informe quantos serviços foram solicitados: ");
-//     scanf("%d", &n);
-
-//     //Segue a mesma ideia do cadastro de serviços prestados na aba de colaboradores, ou seja, é uma matriz tendo em vista que é um vetor de vetores de caracteres
-//     a.servicoDesejado = (char **) malloc(n * sizeof(char *));
-//     if(a.servicoDesejado == NULL){
-//         perror("Erro ao realocar memória\n");
-//         return;
-//     }
-//     for(int i = 0; i < n; i++){
-//         a.servicoDesejado[i] = malloc(200 * sizeof(char));
-//         if(a.servicoDesejado[i] == NULL){
-//             perror("Erro ao realocar memória\n");
-//             return;
-//         }
-//         printf("Informe o nome do %d˚ serviço: ", i+1);
-//         scanf(" %[^\n]s", a.servicoDesejado[i]);
-//     }
-
-//     p[qtdAgen] = a;
-//     printf("Agendamento inserido com sucesso! ID: \n", a.id);
-//     qtdAgen++;
-// }
 
 
 // //Listando todos os Agendamentos "Nao obrigatorio"

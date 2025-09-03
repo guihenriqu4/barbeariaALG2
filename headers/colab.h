@@ -9,7 +9,7 @@ typedef struct {
     int nServicos;
 }Colab;
 
-void inserirColab(Colab **p);
+void inserirColab(Colab **p, FILE *fcolab);
 void listarColabs(Colab *colabs);
 void alterarColabs(Colab **colabs);
 void removerColabs(Colab **colabs);
