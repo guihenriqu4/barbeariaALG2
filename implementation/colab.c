@@ -42,26 +42,15 @@ void inserirColab(Colab **p, FILE *fcolab) {
     printf("Informe o celular do colaborador (00900000000): ");
     scanf("%lld", &c.celular);
 
-    printf("Informe a quantidade de servicos que esse colaborador presta: ");
-    scanf("%d", &n);
+    do{
+        printf("Informe a quantidade de servicos que esse colaborador presta (ate 5): ");
+        scanf("%d", &n);
+    }while(n > 5);
 
     c.nServicos = n;
 
-    //Serviços prestados é uma matriz visto que é um vetor (char) de vetores (também do tipo char). Portanto, é necessário solicitar a informação de quantos serviços vão ser informados para alocar memória suficiente
-    c.servicosPrestados = (char **) malloc(n * sizeof(char *));
-    if(c.servicosPrestados == NULL){
-        perror("Erro ao realocar memoria\n");
-        return;
-    }
-
     //Aloca 200 caracteres de memória em cada posição do vetor de serviços para guardar o nome do serviço prestado
     for(int i = 0; i < n; i++){
-        c.servicosPrestados[i] = (char *) malloc(200 * sizeof(char));
-        if(c.servicosPrestados[i] == NULL){
-            perror("Erro ao realocar memoria\n");
-            return;
-        }
-        //Ao alocar memória, já solicita ao usuário a informação que será armazenada na memória alocada
         printf("Informe o nome do servico %d: ", i+1);
         scanf(" %[^\n]s", c.servicosPrestados[i]);
     }
@@ -121,28 +110,16 @@ void alterarColabs(Colab **colabs){
             scanf(" %[^\n]s",(*colabs)[i].nome);
             printf("\nInforme o novo celular do Colaborador (00900000000): ");
             scanf("%lld",&(*colabs)[i].celular);
-            printf("\nInforme a nova quantidade de servicos que esse colaborador presta: ");
-            scanf("%d",&N);
 
-            for(int j=0;j<(*colabs)[i].nServicos;j++){//Saber se a quantidade de serviços prestados pelo colaborador será menor que anteriormente.
-                free((*colabs)[i].servicosPrestados[j]);//Se for menor que anteriormente, libera o espaço que estava armazenado(já que não será utilizado)
-            }
+            do{
+                printf("\nInforme a nova quantidade de servicos que esse colaborador presta (ate 5): ");
+                scanf("%d",&N);
 
-            (*colabs)[i].servicosPrestados = (char**)realloc((*colabs)[i].servicosPrestados, N*sizeof(char*));//Realoca a memória para a quantidade que precisará, para que nao sobre.
-            if((*colabs)[i].servicosPrestados == NULL){//Verifica se a realocação ocorreu corretamente
-                perror("\nErro ao realocar memoria para os servicos!\n");
-                return;
-            }
+            } while(N > 5);
 
             (*colabs)[i].nServicos=N;//nServicos recebe a quantidade de serviços que o colaborador terá agora
 
             for(int j=0;j<N;j++){
-                (*colabs)[i].servicosPrestados[j] = (char *)malloc(200 * sizeof(char));//Aloca a memoria para a string que usa ao receber os serviços prestados
-                if((*colabs)[i].servicosPrestados[j] == NULL){
-                    perror("\nErro ao realocar memoria para a string de servico\n");
-                    return;
-                    }
-
                 printf("\nInforme o nome do servico %d: ", j+1);
                 scanf(" %[^\n]s", (*colabs)[i].servicosPrestados[j]);
             }
@@ -180,14 +157,6 @@ void removerColabs(Colab **colabs) {
     if (posicao == -1) {
         printf("\nColaborador com ID %d nao encontrado.\n", idBusca);
         return;
-    }
-
-    // Libera memória alocada para os serviços prestados do colaborador a remover
-    if ((*colabs)[posicao].servicosPrestados != NULL) {
-        for (int j = 0; j < (*colabs)[posicao].nServicos; j++) {
-            free((*colabs)[posicao].servicosPrestados[j]);
-        }
-        free((*colabs)[posicao].servicosPrestados);
     }
 
     // Substitui pelo último colaborador do vetor
