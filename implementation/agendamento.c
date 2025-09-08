@@ -100,8 +100,8 @@ void inserirAgendamento(Agendamento **p, Cliente *clientes, int qtdClientes, Col
 }
 
 // CPF do cliente, retornando: Agendamentos ativos, nome e celular vinculados a esse CPF.
-// Colocar a struct Agendamento como parâmetro, junto a quantidade de agendamentos, struct Cliente e quantidade de clientes, por fim o CPF a ser buscado.
-void buscarAgendamentosPorCPF(Agendamento *agendamentos, int qtdAgendamentos, Cliente *clientes, int qtdClientes, char *cpf) {
+// Colocar a struct Agendamento como parâmetro, junto a quantidade de agendamentos, struct Cliente e quantidade de clientes, struct Colab e quantidade de colaboradores, por fim o CPF a ser buscado.
+void buscarAgendamentosPorCPF(Agendamento *agendamentos, int qtdAgendamentos, Cliente *clientes, int qtdClientes, Colab *colaboradores, int qtdColaboradores, char *cpf) {
     int encontrouAgendamento = 0;
 
     printf("--- Agendamentos para o CPF: %s ---\n", cpf);
@@ -136,15 +136,27 @@ void buscarAgendamentosPorCPF(Agendamento *agendamentos, int qtdAgendamentos, Cl
             printf("Data: %s\n", agendamentos[i].data);
             printf("Horario: %s\n", agendamentos[i].horario);
             printf("Servicos desejados:\n");
-            for (int j = 0; agendamentos[i].servicoDesejado[j] != NULL; j++)
-                printf("- %s\n", agendamentos[i].servicoDesejado[j]);
+
+            // pegar quantos servicos o colaborador tem, faço como o cliente, crio uma struct que aponta para NULL
+            // depois se encontrar eu aponto essa struct para o colaborador desse ID
+            Colab *colabAtual = NULL;
+            for (int k = 0; k < qtdColaboradores; k++) {
+                if (colaboradores[k].id == agendamentos[i].idColab) {
+                    colabAtual = &colaboradores[k];
+                    break;
+                }
+            }
+            if (colabAtual != NULL) {
+                for (int j = 0; j < colabAtual->nServicos; j++) {
+                    printf("- %s\n", agendamentos[i].servicoDesejado[j]);
+                }
+            }
             printf("\n");
         }
     }
     
-    if (encontrouAgendamento == 0) {
+    if (encontrouAgendamento == 0)
         printf("Nenhum agendamento encontrado para o CPF %s.\n", cpf);
-    }
 }
 
 //ID do colaborador, retornando: Agendamentos ativos, nome, celular e serviços vinculados a esse ID. 
@@ -177,7 +189,7 @@ void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, int qtdAgendament
         printf("- %s\n", colaboradorEncontrado->servicosPrestados[j]);
     printf("\n");
 
-    // Agora, busca pelos agendamentos, basicmanete compara o ID do agendamento com o ID buscado e printa os dados
+    // Agora, busca pelos agendamentos, basicamente compara o ID do agendamento com o ID buscado e printa os dados
     for (int i = 0; i < qtdAgendamentos; i++) {
         if (agendamentos[i].idColab == idColab) {
             encontrouAgendamento = 1;
@@ -187,15 +199,67 @@ void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, int qtdAgendament
             printf("Data: %s\n", agendamentos[i].data);
             printf("Horario: %s\n", agendamentos[i].horario);
             printf("Servicos desejados:\n");
-            for (int j = 0; agendamentos[i].servicoDesejado[j] != NULL; j++)
+            for (int j = 0; j < colaboradorEncontrado->nServicos; j++) {
                 printf("- %s\n", agendamentos[i].servicoDesejado[j]);
+            }
             printf("\n");
         }
     }      
-    if (encontrouAgendamento == 0) {
+    if (encontrouAgendamento == 0)
         printf("Nenhum agendamento encontrado para o ID do Colaborador %d.\n", idColab);
-    }    
 }
+
+//Data indicada pelo usuário, retornando: Horários agendados, com nome do colaborador e do cliente 
+//Colocar a struct Agendamento como parametro, junto a quantidade de agendamentos, struct Cliente e quantidade de clientes, struct Colab e quantidade de colaboradores, por fim a data a ser buscada.
+//Data: formato dd/MM/YY
+void buscarAgendamentosPorData(Agendamento *agendamentos, int qtdAgendamentos, Cliente *clientes, int qtdClientes, Colab *colaboradores, int qtdColaboradores, char *data) {
+    int encontrouAgendamento = 0;
+
+    printf("--- Agendamentos para a Data: %s ---\n", data);
+
+    // Agora, busca pelos agendamentos, basicamente compara a data do agendamento com a data buscada e printa os dados
+    for (int i = 0; i < qtdAgendamentos; i++) {
+        if (strcmp(agendamentos[i].data, data) == 0) {
+            encontrouAgendamento = 1;
+            printf("---Informacoes do Agendamento %d ---\n", i + 1);
+            printf("ID do Agendamento: %ld\n", agendamentos[i].id);
+            printf("Horario: %s\n", agendamentos[i].horario);
+
+            // Buscar o nome do cliente pelo CPF
+            Cliente *clienteAtual = NULL;
+            for (int j = 0; j < qtdClientes; j++) {
+                if (strcmp(clientes[j].cpf, agendamentos[i].cpfClinte) == 0) {
+                    clienteAtual = &clientes[j];
+                    break;
+                }
+            }
+            if (clienteAtual != NULL) 
+                printf("Nome do Cliente: %s\n", clienteAtual->nome);
+            else
+                printf("Cliente nao encontrado para o CPF: %s\n", agendamentos[i].cpfClinte);
+
+            // Buscar o nome do colaborador pelo ID
+            Colab *colabAtual = NULL;
+            for (int k = 0; k < qtdColaboradores; k++) {
+                if (colaboradores[k].id == agendamentos[i].idColab) {
+                    colabAtual = &colaboradores[k];
+                    break;
+                }
+            }
+            if (colabAtual != NULL)
+                printf("Nome do Colaborador: %s\n", colabAtual->nome);
+            else 
+                printf("Colaborador nao encontrado para o ID: %d\n", agendamentos[i].idColab);
+            printf("\n");
+        }
+    }
+
+    if (encontrouAgendamento == 0)
+        printf("Nenhum agendamento encontrado para a data %s.\n", data);
+}
+
+
+
 
 
 // //Listando todos os Agendamentos "Nao obrigatorio"
