@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "agendamento.h": "c"
+        "agendamento.h": "c",
+        "colab.h": "c"
     }
 }

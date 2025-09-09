@@ -5,13 +5,12 @@
 
 #define INCREMENTO 5 //Número constante que incrementará as posições em blocos de 5
 
-int qtdColab = 10; //Gerencia a quantidade de colaboradores existentes
 int capacidadeC = 15; //Gerencia a capacidade do vetor de colaboradores (tamanho total alocado)
 int id = 10; //Utilizado para vincular identificadores aos colaboradores
 
 //Cadastrando colaborador
-void inserirColab(Colab **p, FILE *fcolab) {
-    if(qtdColab >= capacidadeC){ //Verifica se existem colaboradores suficientes para preencher completamente o vetor
+void inserirColab(Colab **p, FILE *fcolab, int *qtdColab) {
+    if(*qtdColab >= capacidadeC){ //Verifica se existem colaboradores suficientes para preencher completamente o vetor
 
         fcolab = fopen("clientes.txt", "wb"); //Abre um arquivo binário colaboradores
         if(fcolab == NULL){ //Verifica se houve algum erro na abertura do arquivo
@@ -19,8 +18,8 @@ void inserirColab(Colab **p, FILE *fcolab) {
             exit(1);
         }
 
-        int result = fwrite(*p, sizeof(Colab), qtdColab, fcolab); //Salva os dados do vetor colabs no arquivo binário
-        if(result < qtdColab) perror("Erro na gravacao de algum dos colaboradores."); //Verifica se houve algum erro na escrita
+        int result = fwrite(*p, sizeof(Colab), *qtdColab, fcolab); //Salva os dados do vetor colabs no arquivo binário
+        if(result < *qtdColab) perror("Erro na gravacao de algum dos colaboradores."); //Verifica se houve algum erro na escrita
 
         fclose(fcolab); //Fecha o arquivo
 
@@ -56,21 +55,21 @@ void inserirColab(Colab **p, FILE *fcolab) {
     }
 
     //Armazena o colaborador no vetor
-    (*p)[qtdColab] = c;
+    (*p)[*qtdColab] = c;
     printf("Colaborador inserido com sucesso! ID: %d\n", c.id);
-    qtdColab++; //Indica que houve um aumento na quantidade de colaboradores
+    (*qtdColab)++; //Indica que houve um aumento na quantidade de colaboradores
 }
 
 //Listando todos os Colaboradores
-void listarColabs(Colab *colabs) {
+void listarColabs(Colab *colabs, int *qtdColab) {
     //Verifica se existem colaboradores cadastrados
-    if (qtdColab == 0) {
+    if (*qtdColab == 0) {
         printf("Nenhum colaborador cadastrado.\n\n");
         return;
     }
 
     //Percorre o vetor de colaboradores e imprime as informações de cada um
-    for (int i = 0; i < qtdColab; i++) {
+    for (int i = 0; i < *qtdColab; i++) {
         printf("-- Colaborador %d --\n", i + 1);
         printf(" ID: %d\n", colabs[i].id);
         printf(" Nome: %s\n", colabs[i].nome);
@@ -91,8 +90,8 @@ void listarColabs(Colab *colabs) {
 }
 
 //Alterando as informações dos Colaboradores
-void alterarColabs(Colab **colabs){
-    if (qtdColab == 0){//Verifica se há colaboradores cadastrados
+void alterarColabs(Colab **colabs, int *qtdColab){
+    if (*qtdColab == 0){//Verifica se há colaboradores cadastrados
        printf("\nNenhum colaborador cadastrado.\n\n");
        return;
     }
@@ -103,7 +102,7 @@ void alterarColabs(Colab **colabs){
 
     int colabEncontrado = 0;
     int N;
-    for(int i = 0; i < qtdColab; i++){
+    for(int i = 0; i < *qtdColab; i++){
 
         if((*colabs)[i].id == idBusca){//Encontra o ID do colaborador desejado
             printf("\nInforme o novo nome do Colaborador: ");
@@ -136,8 +135,8 @@ void alterarColabs(Colab **colabs){
 }
 
 //Deletando algum colaborador
-void removerColabs(Colab **colabs) {
-    if (qtdColab == 0) {
+void removerColabs(Colab **colabs, int *qtdColab) {
+    if (*qtdColab == 0) {
         printf("\nNenhum colaborador cadastrado para remover.\n\n");
         return;
     }
@@ -147,7 +146,7 @@ void removerColabs(Colab **colabs) {
     scanf("%d", &idBusca);
 
     int posicao = -1;
-    for (int i = 0; i < qtdColab; i++) {
+    for (int i = 0; i < *qtdColab; i++) {
         if ((*colabs)[i].id == idBusca) {
             posicao = i;
             break;
@@ -158,10 +157,11 @@ void removerColabs(Colab **colabs) {
         printf("\nColaborador com ID %d nao encontrado.\n", idBusca);
         return;
     }
+    
 
     // Substitui pelo último colaborador do vetor
-    (*colabs)[posicao] = (*colabs)[qtdColab - 1];
-    qtdColab--;
+    (*colabs)[posicao] = (*colabs)[*qtdColab - 1];
+    (*qtdColab)--;
 
     // Reduz a capacidade e realoca memória
     capacidadeC--;

@@ -11,9 +11,9 @@ typedef struct {
     int nServicos;
 }Colab;
 
-void inserirColab(Colab **p, FILE *fcolab);
-void listarColabs(Colab *colabs);
-void alterarColabs(Colab **colabs);
-void removerColabs(Colab **colabs);
+void inserirColab(Colab **p, FILE *fcolab, int *qtdColab);
+void listarColabs(Colab *colabs, int *qtdColab);
+void alterarColabs(Colab **colabs, int *qtdColab);
+void removerColabs(Colab **colabs, int *qtdColab);
 
 #endif

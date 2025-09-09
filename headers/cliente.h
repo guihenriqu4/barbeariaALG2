@@ -10,9 +10,9 @@ typedef struct{
     char dataIntegracao[9]; //formato dd/MM/YY
 }Cliente;
 
-void inserirCliente(Cliente **p, FILE *fcliente);
-void listarClientes(Cliente *clientes);
-void alterarClientes(Cliente **clientes);
-void removerClientes(Cliente **clientes);
+void inserirCliente(Cliente **p, FILE *fcliente, int *qtdCliente);
+void listarClientes(Cliente *clientes, int *qtdCliente);
+void alterarClientes(Cliente **clientes, int *qtdCliente);
+void removerClientes(Cliente **clientes, int *qtdCliente);
 
 #endif

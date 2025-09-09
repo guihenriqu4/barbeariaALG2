@@ -5,12 +5,11 @@
 
 #define INCREMENTO 5 //Número constante que incrementará as posições em blocos de 5
 
-int qtdCliente = 10; //Gerencia a quantidade de clientes existentes
 int capacidadeCl = 15; //Gerencia a capacidade do vetor de clientes (tamanho total alocado)
 
 //Cadastrando cliente
-void inserirCliente(Cliente **p, FILE *fcliente){
-    if(qtdCliente >= capacidadeCl){ //Verifica se existem clientes suficientes para preencher completamente o vetor
+void inserirCliente(Cliente **p, FILE *fcliente, int *qtdCliente){
+    if(*qtdCliente >= capacidadeCl){ //Verifica se existem clientes suficientes para preencher completamente o vetor
 
         fcliente = fopen("clientes.txt", "wb"); //Abre um arquivo binário clientes
         if(fcliente == NULL){ //Verifica se houve algum erro na abertura do arquivo
@@ -18,8 +17,8 @@ void inserirCliente(Cliente **p, FILE *fcliente){
             exit(1);
         }
 
-        int result = fwrite(*p, sizeof(Cliente), qtdCliente, fcliente); //Salva os dados do vetor clientes no arquivo binário
-        if(result < qtdCliente) perror("Erro na gravacao de algum dos clientes."); //Verifica se houve algum erro na escrita
+        int result = fwrite(*p, sizeof(Cliente), *qtdCliente, fcliente); //Salva os dados do vetor clientes no arquivo binário
+        if(result < *qtdCliente) perror("Erro na gravacao de algum dos clientes."); //Verifica se houve algum erro na escrita
 
         fclose(fcliente); //Fecha o arquivo
 
@@ -37,7 +36,7 @@ void inserirCliente(Cliente **p, FILE *fcliente){
     scanf(" %[^\n]s", c.cpf);
 
     //Verifica se existe algum cadastro com a chave primária informada
-    for(int i = 0; i < qtdCliente; i++){
+    for(int i = 0; i < *qtdCliente; i++){
         if(strcmp((*p)[i].cpf, c.cpf) == 0){
             perror("CPF ja cadastrado.\n");
             return;
@@ -54,20 +53,20 @@ void inserirCliente(Cliente **p, FILE *fcliente){
     scanf(" %[^\n]s", c.dataIntegracao);
 
     //Armazena o cliente criado no vetor
-    (*p)[qtdCliente] = c;
+    (*p)[*qtdCliente] = c;
     printf("Cliente inserido com sucesso!\n");
-    qtdCliente++; //Indica que houve um aumento no número de clientes
+    (*qtdCliente)++; //Indica que houve um aumento no número de clientes
 }
 
 //Listando todos os Clientes
-void listarClientes(Cliente *clientes) {
+void listarClientes(Cliente *clientes, int *qtdCliente) {
     //Verifica se existem clientes cadastrados
-    if (qtdCliente == 0) {
+    if (*qtdCliente == 0) {
         printf("Nenhum cliente cadastrado.\n\n");
         return;
     }
     //Percorre o vetor de clientes e imprime as informações de cada um
-    for (int i = 0; i < qtdCliente; i++) {
+    for (int i = 0; i < *qtdCliente; i++) {
         printf("-- Cliente %d --\n", i + 1);
         printf(" CPF: %s\n", clientes[i].cpf);
         printf(" Nome: %s\n", clientes[i].nome);
@@ -77,8 +76,8 @@ void listarClientes(Cliente *clientes) {
 }
 
 //Alterar as informações do Cliente
-void alterarClientes(Cliente **clientes){
-    if (qtdCliente == 0){//Garante que tem algum cliente cadastrado
+void alterarClientes(Cliente **clientes, int *qtdCliente){
+    if (*qtdCliente == 0){//Garante que tem algum cliente cadastrado
         printf("\nNenhum cliente cadastrado.\n\n");
         return;
     }
@@ -89,7 +88,7 @@ void alterarClientes(Cliente **clientes){
 
     int clienteEncontrado = 0;
 
-    for(int i = 0; i < qtdCliente; i++){
+    for(int i = 0; i < *qtdCliente; i++){
         if(strcmp((*clientes)[i].cpf, cpfBusca) == 0){//Encontra o CPF do cliente desejado para ser alterado
             printf("Cliente encontrado! Por favor, insira as novas informacoes\n");
 
@@ -113,18 +112,18 @@ void alterarClientes(Cliente **clientes){
     }
 }
 
-void removerClientes(Cliente **clientes) {
-    if (qtdCliente == 0) {
+void removerClientes(Cliente **clientes, int *qtdCliente) {
+    if (*qtdCliente == 0) {
         printf("\nNenhum cliente cadastrado para remover.\n\n");
         return;
     }
 
-    char cpfBusca[14];
+    char cpfBusca[15];
     printf("Informe o CPF do cliente que deseja remover (000.000.000-00): ");
     scanf(" %[^\n]s", cpfBusca);
 
     int posicao = -1;
-    for (int i = 0; i < qtdCliente; i++) {
+    for (int i = 0; i < *qtdCliente; i++) {
         if (strcmp((*clientes)[i].cpf, cpfBusca) == 0) {
             posicao = i;
             break;
@@ -137,8 +136,8 @@ void removerClientes(Cliente **clientes) {
     }
 
     // Substitui pelo último cliente do vetor
-    (*clientes)[posicao] = (*clientes)[qtdCliente - 1];
-    qtdCliente--;
+    (*clientes)[posicao] = (*clientes)[*qtdCliente - 1];
+    (*qtdCliente)--;
 
     // Diminui a capacidade em 1 posição e realoca
     capacidadeCl--;

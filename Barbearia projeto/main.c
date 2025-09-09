@@ -11,6 +11,7 @@ FILE *fagen;
 Cliente *clientes = NULL;
 Colab *colabs = NULL;
 Agendamento *agendamentos = NULL;
+int qtdCliente = 0, qtdColab = 0, qtdAgend = 0;
 
 // void inicializarDados() {
 //     // --- Inicializa Clientes ---
@@ -184,7 +185,6 @@ Agendamento *agendamentos = NULL;
 // }
 
 void inicializarDados(){
-    int qtdCliente;
     fcliente = fopen("clientes.bin", "rb");
     if(fcliente == NULL){
         perror("Erro ao abrir arquivo\n");
@@ -201,7 +201,6 @@ void inicializarDados(){
     fread(clientes, sizeof(Cliente), qtdCliente, fcliente);
     fclose(fcliente);
 
-    int qtdColab;
     fcolabs = fopen("colabs.bin", "rb");
     if(fcolabs == NULL){
         perror("Erro ao abrir arquivo\n");
@@ -247,16 +246,16 @@ void menuClientes() {
             // Se a leitura foi um sucesso, executa o switch
             switch(opcao) {
                 case 1:
-                    inserirCliente(&clientes, fcliente);
+                    inserirCliente(&clientes, fcliente, &qtdCliente);
                     break;
                 case 2:
-                    listarClientes(clientes);
+                    listarClientes(clientes, &qtdCliente);
                     break;
                 case 3:
-                    alterarClientes(&clientes);
+                    alterarClientes(&clientes, &qtdCliente);
                     break;
                 case 4:
-                    removerClientes(&clientes);
+                    removerClientes(&clientes, &qtdCliente);
                     break;
                 case 5:
                     break;
@@ -295,16 +294,16 @@ void menuColabs() {
             // Se a leitura foi um sucesso, executa o switch
             switch(opcao) {
                 case 1:
-                    inserirColab(&colabs, fcolabs);
+                    inserirColab(&colabs, fcolabs, &qtdColab);
                     break;
                 case 2:
-                    listarColabs(colabs);
+                    listarColabs(colabs, &qtdColab);
                     break;
                 case 3:
-                    alterarColabs(&colabs);
+                    alterarColabs(&colabs, &qtdColab);
                     break;
                 case 4:
-                    removerColabs(&colabs);
+                    removerColabs(&colabs, &qtdColab);
                     break;
                 case 5:
                     break;
