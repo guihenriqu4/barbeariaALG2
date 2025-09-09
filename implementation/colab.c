@@ -181,7 +181,7 @@ void removerColabs(Colab **colabs, Agendamento *agendamentos, int qtdAgendamento
     }
 
     // 🔹 Atualiza arquivo binário
-    FILE *f = fopen("colaboradores.bin", "wb");
+    FILE *f = fopen("colaboradores.txt", "wb");
     if (f == NULL) {
         printf("\nErro: nao foi possivel abrir o arquivo colaboradores.bin\n");
     } else {

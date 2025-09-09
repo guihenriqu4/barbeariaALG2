@@ -158,7 +158,7 @@ void removerClientes(Cliente **clientes, Agendamento *agendamentos, int qtdAgend
     }
 
     // 🔹 Atualiza arquivo binário
-    FILE *f = fopen("clientes.bin", "wb");
+    FILE *f = fopen("clientes.txt", "wb");
     if (f == NULL) {
         printf("\nErro: nao foi possivel abrir o arquivo clientes.bin\n");
     } else {
