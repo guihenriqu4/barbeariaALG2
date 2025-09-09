@@ -112,7 +112,7 @@ void alterarClientes(Cliente **clientes, int *qtdCliente){
     }
 }
 
-void removerClientes(Cliente **clientes, int *qtdCliente) {
+void removerClientes(Cliente **clientes, Agendamento *agendamentos, int *qtdAgendamentos, int *qtdCliente) {
     if (*qtdCliente == 0) {
         printf("\nNenhum cliente cadastrado para remover.\n\n");
         return;
@@ -121,6 +121,14 @@ void removerClientes(Cliente **clientes, int *qtdCliente) {
     char cpfBusca[15];
     printf("Informe o CPF do cliente que deseja remover (000.000.000-00): ");
     scanf(" %[^\n]s", cpfBusca);
+
+    // 🔹 Verifica se cliente possui agendamentos
+    for (int i = 0; i < *qtdAgendamentos; i++) {
+        if (strcmp(agendamentos[i].cpfClinte, cpfBusca) == 0) {
+            printf("\nNao e possivel remover o cliente %s, pois possui agendamentos ativos.\n", cpfBusca);
+            return;
+        }
+    }
 
     int posicao = -1;
     for (int i = 0; i < *qtdCliente; i++) {
@@ -143,10 +151,19 @@ void removerClientes(Cliente **clientes, int *qtdCliente) {
     capacidadeCl--;
     Cliente *temp = realloc(*clientes, capacidadeCl * sizeof(Cliente));
     if (temp != NULL || capacidadeCl == 0) {
-        *clientes = temp; // atualiza o ponteiro se realloc funcionar
+        *clientes = temp;
     } else {
         printf("Erro ao realocar memoria apos remocao");
     }
+
+    // 🔹 Atualiza arquivo binário
+    FILE *f = fopen("clientes.bin", "wb");
+    if (f == NULL) {
+        printf("\nErro: nao foi possivel abrir o arquivo clientes.bin\n");
+        exit(1);
+    }
+    fwrite(*clientes, sizeof(Cliente), *qtdCliente, f);
+    fclose(f);
 
     printf("\nCliente removido com sucesso!\n");
 }
