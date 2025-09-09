@@ -16,8 +16,9 @@ typedef struct {
 }Agendamento;
 
 void inserirAgendamento(Agendamento **p, Cliente *clientes, int qtdClientes, Colab *colabs, int qtdColabs,FILE *fagen);
-void buscarAgendamentosPorCPF(Agendamento *agendamentos, int qtdAgendamentos, Cliente *clientes, int qtdClientes, char *cpf);
+void buscarAgendamentosPorCPF(Agendamento *agendamentos, int qtdAgendamentos, Cliente *clientes, int qtdClientes,  Colab *colaboradores, int qtdColaboradores, char *cpf);
 void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, int qtdAgendamentos, Colab *colaboradores, int qtdColaboradores, int idColab);
 void removerAgendamentos(Agendamento **agendamentos);
+void buscarAgendamentosPorData(Agendamento *agendamentos, int qtdAgendamentos, Cliente *clientes, int qtdClientes,  Colab *colaboradores, int qtdColaboradores, char *data);
 
 #endif
