@@ -6,7 +6,7 @@
 #define INCREMENTO 5 //Número constante que incrementará as posições em blocos de 5
 
 int capacidadeC = 15; //Gerencia a capacidade do vetor de colaboradores (tamanho total alocado)
-int id = 10; //Utilizado para vincular identificadores aos colaboradores
+int idColab = 10; //Utilizado para vincular identificadores aos colaboradores
 
 //Cadastrando colaborador
 void inserirColab(Colab **p, FILE *fcolab, int *qtdColab) {
@@ -34,7 +34,7 @@ void inserirColab(Colab **p, FILE *fcolab, int *qtdColab) {
     //Solicita as informações necessárias para inserir um novo colaborador
     Colab c;
     int n;
-    c.id = ++id; //Atribui um identificador ao colaborador em uma sequência crescente
+    c.id = ++idColab; //Atribui um identificador ao colaborador em uma sequência crescente
     printf("Informe o nome do colaborador: ");
     scanf(" %[^\n]s", c.nome);
 
@@ -135,7 +135,7 @@ void alterarColabs(Colab **colabs, int *qtdColab){
 }
 
 //Deletando algum colaborador
-void removerColabs(Colab **colabs, Agendamento *agendamentos, int *qtdAgendamentos, int *qtdColab, FILE *fcolabs) {
+void removerColabs(Colab **colabs, Agendamento *agendamentos, long int *qtdAgendamentos, int *qtdColab, FILE *fcolabs) {
     if (*qtdColab == 0) {
         printf("\nNenhum colaborador cadastrado para remover.\n\n");
         return;

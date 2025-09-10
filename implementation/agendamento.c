@@ -8,7 +8,7 @@
 #define INCREMENTO 5
 
 long int capacidadeA = 0;
-long int id = 1;
+long int idAgen = 1;
 
 //Cadastrando novo agendamento
 void inserirAgendamento(Agendamento **p, Cliente *clientes, int *qtdClientes, Colab *colabs, int *qtdColabs, long int *qtdAgen, FILE *fagen){
@@ -34,9 +34,9 @@ void inserirAgendamento(Agendamento **p, Cliente *clientes, int *qtdClientes, Co
     }
 
     //Solicita as informações necessárias para inserir um novo cliente
-    long int n;
+    int n;
     Agendamento a;
-    a.id = id++; //Atribui um identificador ao agendamento em uma sequência crescente
+    a.id = idAgen++; //Atribui um identificador ao agendamento em uma sequência crescente
     printf("Informe o CPF do cliente: ");
     scanf(" %[^\n]s", a.cpfClinte);
 
@@ -69,10 +69,10 @@ void inserirAgendamento(Agendamento **p, Cliente *clientes, int *qtdClientes, Co
     }
 
     printf("Informe a data do agendamento (dd/MM//YY): ");
-    scanf(" %[^\n]s", &a.data);
+    scanf(" %[^\n]s", a.data);
 
     printf("Informe o horário do agendamento (HH:mm): ");
-    scanf(" %[^\n]s", &a.horario);
+    scanf(" %[^\n]s", a.horario);
 
     printf("Informe quantos serviços foram solicitados (ate 5): ");
     scanf("%d", &n);
@@ -150,7 +150,7 @@ void buscarAgendamentosPorCPF(Agendamento *agendamentos, long int *qtdAgendament
 
 //ID do colaborador, retornando: Agendamentos ativos, nome, celular e serviços vinculados a esse ID. 
 //Colocar a struct Agendamento como parâmetro, junto a quantidade de agendamentos, struct Colab e quantidade de colaboradores, por fim o ID a ser buscado.
-void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, int *qtdAgendamentos, Colab *colaboradores, int *qtdColaboradores, int idColab){
+void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, long int *qtdAgendamentos, Colab *colaboradores, int *qtdColaboradores, int idColab){
     int encontrouAgendamento = 0;
 
     printf("--- Agendamentos para o ID do Colaborador: %d ---\n", idColab);
@@ -202,7 +202,7 @@ void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, int *qtdAgendamen
 //Data indicada pelo usuário, retornando: Horários agendados, com nome do colaborador e do cliente 
 //Colocar a struct Agendamento como parametro, junto a quantidade de agendamentos, struct Cliente e quantidade de clientes, struct Colab e quantidade de colaboradores, por fim a data a ser buscada.
 //Data: formato dd/MM/YY
-void buscarAgendamentosPorData(Agendamento *agendamentos, int *qtdAgendamentos, Cliente *clientes, int *qtdClientes, Colab *colaboradores, int *qtdColaboradores, char *data) {
+void buscarAgendamentosPorData(Agendamento *agendamentos, long int *qtdAgendamentos, Cliente *clientes, int *qtdClientes, Colab *colaboradores, int *qtdColaboradores, char *data) {
     int encontrouAgendamento = 0;
 
     printf("--- Agendamentos para a Data: %s ---\n", data);
@@ -248,7 +248,7 @@ void buscarAgendamentosPorData(Agendamento *agendamentos, int *qtdAgendamentos, 
         printf("Nenhum agendamento encontrado para a data %s.\n", data);
 }
 
-void removerAgendamentos(Agendamento **agendamentos, int *qtdAgen, FILE *fagen) {
+void removerAgendamentos(Agendamento **agendamentos, long int *qtdAgen, FILE *fagen) {
     if (*qtdAgen == 0) {
         printf("\nNenhum agendamento para remover.\n\n");
         return;

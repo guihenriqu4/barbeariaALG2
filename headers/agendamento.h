@@ -2,23 +2,16 @@
 #define AGENDAMENTO_H
 
 #include <stdio.h>
-
-struct Cliente;
-struct Colab;
-
-typedef struct {
-    long int id;
-    char cpfClinte[15];
-    int idColab;
-    char data[9]; //formato dd/MM/YY
-    char horario[6]; //formato HH:mm
-    char servicoDesejado[5][200];
-}Agendamento;
+#include "structs.h"
 
 void inserirAgendamento(Agendamento **p, Cliente *clientes, int *qtdClientes, Colab *colabs, int *qtdColabs, long int *qtdAgen, FILE *fagen);
+
 void buscarAgendamentosPorCPF(Agendamento *agendamentos, long int *qtdAgendamentos, Cliente *clientes, int *qtdClientes, Colab *colaboradores, int *qtdColaboradores, char *cpf);
+
 void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, long int *qtdAgendamentos, Colab *colaboradores, int *qtdColaboradores, int idColab);
+
 void buscarAgendamentosPorData(Agendamento *agendamentos, long int *qtdAgendamentos, Cliente *clientes, int *qtdClientes, Colab *colaboradores, int *qtdColaboradores, char *data);
-void removerAgendamentos(Agendamento **agendamentos);
+
+void removerAgendamentos(Agendamento **agendamentos, long int *qtdAgendamentos, FILE *fagen);
 
 #endif

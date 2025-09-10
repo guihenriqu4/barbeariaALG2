@@ -5,9 +5,9 @@
 #include "../headers/colab.h"
 #include "../headers/agendamento.h"
 
-FILE *fcliente;
-FILE *fcolabs;
-FILE *fagen;
+FILE *fcliente = NULL;
+FILE *fcolabs = NULL;
+FILE *fagen = NULL;
 Cliente *clientes = NULL;
 Colab *colabs = NULL;
 Agendamento *agendamentos = NULL;

@@ -2,19 +2,11 @@
 #define COLAB_H
 
 #include <stdio.h>
-#include "agendamento.h"
-
-typedef struct {
-    int id;
-    char nome[50];
-    long long int celular;
-    char servicosPrestados[5][200];
-    int nServicos;
-} Colab;
+#include "structs.h"
 
 void inserirColab(Colab **p, FILE *fcolab, int *qtdColab);
 void listarColabs(Colab *colabs, int *qtdColab);
 void alterarColabs(Colab **colabs, int *qtdColab);
-void removerColabs(Colab **colabs, Agendamento *agendamentos, int *qtdAgendamentos, int *qtdColab, FILE *fcolabs);
+void removerColabs(Colab **colabs, Agendamento *agendamentos, long int *qtdAgendamentos, int *qtdColab, FILE *fcolabs);
 
 #endif

@@ -112,7 +112,7 @@ void alterarClientes(Cliente **clientes, int *qtdCliente){
     }
 }
 
-void removerClientes(Cliente **clientes, Agendamento *agendamentos, int *qtdAgendamentos, int *qtdCliente, FILE *fcliente) {
+void removerClientes(Cliente **clientes, Agendamento *agendamentos, long int *qtdAgendamentos, int *qtdCliente, FILE *fcliente) {
     if (*qtdCliente == 0) {
         printf("\nNenhum cliente cadastrado para remover.\n\n");
         return;
