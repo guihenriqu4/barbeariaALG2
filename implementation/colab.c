@@ -135,7 +135,7 @@ void alterarColabs(Colab **colabs, int *qtdColab){
 }
 
 //Deletando algum colaborador
-void removerColabs(Colab **colabs, Agendamento *agendamentos, int *qtdAgendamentos, int *qtdColab) {
+void removerColabs(Colab **colabs, Agendamento *agendamentos, int *qtdAgendamentos, int *qtdColab, FILE *fcolabs) {
     if (*qtdColab == 0) {
         printf("\nNenhum colaborador cadastrado para remover.\n\n");
         return;
@@ -177,17 +177,19 @@ void removerColabs(Colab **colabs, Agendamento *agendamentos, int *qtdAgendament
     if (temp != NULL || capacidadeC == 0) {
         *colabs = temp;
     } else {
-        printf("Erro ao realocar memoria apos remocao de colaborador");
+        perror("Erro ao realocar memoria apos remocao de colaborador");
+        exit(1);
     }
 
     // 🔹 Atualiza arquivo binário
-    FILE *f = fopen("colabs.bin", "wb");
-    if (f == NULL) {
-        printf("\nErro: nao foi possivel abrir o arquivo colaboradores.bin\n");
-    } else {
-        fwrite(*colabs, sizeof(Colab), *qtdColab, f);
-        fclose(f);
+    fcolabs = fopen("colabs.bin", "wb");
+    if (fcolabs == NULL) {
+        perror("\nErro: nao foi possivel abrir o arquivo colaboradores.bin\n");
+        exit(1);
     }
+    fwrite(*colabs, sizeof(Colab), *qtdColab, fcolabs);
+    fclose(fcolabs);
+    
 
     printf("\nColaborador removido com sucesso!\n");
 }

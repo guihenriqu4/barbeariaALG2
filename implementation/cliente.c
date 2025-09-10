@@ -112,7 +112,7 @@ void alterarClientes(Cliente **clientes, int *qtdCliente){
     }
 }
 
-void removerClientes(Cliente **clientes, Agendamento *agendamentos, int *qtdAgendamentos, int *qtdCliente) {
+void removerClientes(Cliente **clientes, Agendamento *agendamentos, int *qtdAgendamentos, int *qtdCliente, FILE *fcliente) {
     if (*qtdCliente == 0) {
         printf("\nNenhum cliente cadastrado para remover.\n\n");
         return;
@@ -143,7 +143,7 @@ void removerClientes(Cliente **clientes, Agendamento *agendamentos, int *qtdAgen
         return;
     }
 
-    // Substitui pelo último cliente do vetor
+    // Substitui pelo último cliente
     (*clientes)[posicao] = (*clientes)[*qtdCliente - 1];
     (*qtdCliente)--;
 
@@ -153,17 +153,18 @@ void removerClientes(Cliente **clientes, Agendamento *agendamentos, int *qtdAgen
     if (temp != NULL || capacidadeCl == 0) {
         *clientes = temp;
     } else {
-        printf("Erro ao realocar memoria apos remocao");
+        perror("Erro ao realocar memoria apos remocao");
+        exit(1);
     }
 
     // 🔹 Atualiza arquivo binário
-    FILE *f = fopen("clientes.bin", "wb");
-    if (f == NULL) {
-        printf("\nErro: nao foi possivel abrir o arquivo clientes.bin\n");
+    fcliente = fopen("clientes.bin", "wb");
+    if (fcliente == NULL) {
+        perror("\nErro: nao foi possivel abrir o arquivo clientes.bin\n");
         exit(1);
     }
-    fwrite(*clientes, sizeof(Cliente), *qtdCliente, f);
-    fclose(f);
+    fwrite(*clientes, sizeof(Cliente), *qtdCliente, fcliente);
+    fclose(fcliente);
 
     printf("\nCliente removido com sucesso!\n");
 }

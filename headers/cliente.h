@@ -2,7 +2,7 @@
 #define CLIENTE_H
 
 #include <stdio.h>
-#include "agendamento.h"  // precisa do struct Agendamento
+#include "agendamento.h"
 
 typedef struct {
     char cpf[15];          // formato 000.000.000-00
@@ -14,6 +14,6 @@ typedef struct {
 void inserirCliente(Cliente **p, FILE *fcliente, int *qtdCliente);
 void listarClientes(Cliente *clientes, int *qtdCliente);
 void alterarClientes(Cliente **clientes, int *qtdCliente);
-void removerClientes(Cliente **clientes, Agendamento *agendamentos, int *qtdAgendamentos, int *qtdCliente);
+void removerClientes(Cliente **clientes, Agendamento *agendamentos, int *qtdAgendamentos, int *qtdCliente, FILE *fcliente);
 
 #endif

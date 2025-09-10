@@ -11,7 +11,8 @@ FILE *fagen;
 Cliente *clientes = NULL;
 Colab *colabs = NULL;
 Agendamento *agendamentos = NULL;
-int qtdCliente = 0, qtdColab = 0, qtdAgend = 0;
+int qtdCliente = 0, qtdColab = 0;
+long int qtdAgend = 0;
 
 // void inicializarDados() {
 //     // --- Inicializa Clientes ---
@@ -255,7 +256,7 @@ void menuClientes() {
                     alterarClientes(&clientes, &qtdCliente);
                     break;
                 case 4:
-                    removerClientes(&clientes, &qtdCliente);
+                    removerClientes(&clientes, agendamentos, &qtdAgend, &qtdCliente, fcliente);
                     break;
                 case 5:
                     break;
@@ -303,7 +304,7 @@ void menuColabs() {
                     alterarColabs(&colabs, &qtdColab);
                     break;
                 case 4:
-                    removerColabs(&colabs, &qtdColab);
+                    removerColabs(&colabs, agendamentos, &qtdAgend, &qtdColab, fcolabs);
                     break;
                 case 5:
                     break;
