@@ -130,7 +130,7 @@ void inicializarDados() {
     strcpy(colabs[5].nome, "Fabio Almeida");
     colabs[5].celular = 11987654323;
     colabs[5].nServicos = 2;
-    strcpy(colabs[5].servicosPrestados[0], "Tratamento capilar");
+    strcpy(colabs[5].servicosPrestados[0], "Barboterapia");
     strcpy(colabs[5].servicosPrestados[1], "Hidratacao");
 
     // Colaborador 7
@@ -223,7 +223,7 @@ void inicializarDados() {
     agendamentos[5].idColab = 6;
     strcpy(agendamentos[5].data, "12/03/25");
     strcpy(agendamentos[5].horario, "13:30");
-    strcpy(agendamentos[5].servicoDesejado[0], "Tratamento capilar");
+    strcpy(agendamentos[5].servicoDesejado[0], "Barboterapia");
     strcpy(agendamentos[5].servicoDesejado[1], "Hidratacao");
 
     // Agendamento 7
@@ -288,8 +288,7 @@ void inicializarDados() {
     fwrite(&qtdAgend, sizeof(long int), 1, fagen);
     fwrite(agendamentos, sizeof(Agendamento), qtdAgend, fagen);
     fclose(fagen);
-}
-*/
+}*/
 
  void inicializarDados() {
      fcliente = fopen("clientes.bin", "rb");
