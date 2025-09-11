@@ -461,7 +461,8 @@ void menuAgendamentos() {
        printf("2. Listar agendamento\n");
        printf("3. Alterar agendamento\n");
        printf("4. Remover agendamento\n");
-       printf("5. Voltar\n");
+       printf("5. Gerar Relatorio\n");
+       printf("6. Voltar\n");
        printf("Escolha uma opcao: ");
 
        retorno_scanf = scanf("%d", &opcao);
@@ -520,12 +521,15 @@ void menuAgendamentos() {
                     removerAgendamentos(&agendamentos, &qtdAgend, fagen);
                     break;
                 case 5:
+                    gerarRelatorio(agendamentos, &qtdAgend, clientes, &qtdCliente, colabs, &qtdColab);
+                    break;
+                case 6:
                     break;
                 default:
                     printf("Opcao invalida, tente novamente.\n");
             }
        }
-    } while (opcao != 5);
+    } while (opcao != 6);
 }
 
 void menuPrincipal() {

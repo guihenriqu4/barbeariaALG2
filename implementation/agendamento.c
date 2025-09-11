@@ -414,3 +414,228 @@ void removerAgendamentos(Agendamento **agendamentos, long int *qtdAgen, FILE *fa
 
     printf("\nAgendamento removido com sucesso!\n");
 }
+
+int converterData(const char *data) {
+    return (data[6] - '0') * 10000 +
+           (data[7] - '0') * 1000 +
+           (data[3] - '0') * 100 +
+           (data[4] - '0') * 10 +
+           (data[0] - '0') * 1 +
+           (data[1] - '0');
+}
+
+void gerarRelatorio(Agendamento *agendamentos, long int *qtdAgendamentos, Cliente *clientes, int *qtdClientes, Colab *colaboradores, int *qtdColaboradores) {
+    int opcao;
+    // Apresenta o menu de opções de relatório para o usuário.
+    printf("\n-- GERAR RELATORIO --\n");
+    printf("1. Relatorio por CPF do Cliente\n");
+    printf("2. Relatorio por ID do Colaborador\n");
+    printf("3. Relatorio por Data\n");
+    printf("Escolha uma opcao: ");
+    scanf("%d", &opcao);
+
+    // Abre (ou cria) o arquivo "relatorio.txt" em modo de escrita ("w").
+    // O modo "w" apaga o conteúdo anterior do arquivo se ele já existir.
+    FILE *fRelatorio = fopen("relatorio.txt", "w");
+    if (fRelatorio == NULL) { // Verifica se a abertura do arquivo falhou.
+        perror("Nao foi possivel criar o arquivo de relatorio.");
+        return; // Encerra a função se não for possível criar o arquivo.
+    }
+
+    // Variável de controle para verificar se algum registro foi encontrado.
+    int encontrou = 0;
+
+    // Estrutura switch para lidar com a opção escolhida pelo usuário.
+    switch (opcao) {
+        // Caso 1: Relatório por CPF do Cliente.
+        case 1: {
+            char cpf[15];
+            printf("Informe o CPF do cliente: ");
+            scanf(" %[^\n]s", cpf);
+
+            // Busca pelo cliente correspondente ao CPF informado.
+            Cliente *clienteEncontrado = NULL; // Ponteiro para armazenar o cliente, se encontrado.
+            for (int i = 0; i < *qtdClientes; i++) {
+                if (strcmp(clientes[i].cpf, cpf) == 0) {
+                    clienteEncontrado = &clientes[i]; // Armazena o endereço do cliente encontrado.
+                    break;
+                }
+            }
+
+            // Se o cliente não for encontrado, informa o usuário e encerra.
+            if (clienteEncontrado == NULL) {
+                printf("Nenhum cliente encontrado com o CPF %s.\n", cpf);
+                fclose(fRelatorio); // Fecha o arquivo antes de sair.
+                return;
+            }
+
+            // Escreve o cabeçalho e as informações do cliente no arquivo.
+            fprintf(fRelatorio, "--- RELATORIO DE AGENDAMENTOS POR CLIENTE ---\n\n");
+            fprintf(fRelatorio, "Cliente: %s\n", clienteEncontrado->nome);
+            fprintf(fRelatorio, "CPF: %s\n", clienteEncontrado->cpf);
+            fprintf(fRelatorio, "Celular: %lld\n\n", clienteEncontrado->celular);
+            fprintf(fRelatorio, "--------------------------------------------------\n\n");
+
+            // Percorre todos os agendamentos para encontrar os que pertencem ao cliente.
+            for (int i = 0; i < *qtdAgendamentos; i++) {
+                if (strcmp(agendamentos[i].cpfCliente, cpf) == 0) {
+                    encontrou = 1; // Marca que pelo menos um registro foi encontrado.
+                    // Escreve os detalhes do agendamento no arquivo.
+                    fprintf(fRelatorio, "Agendamento ID: %ld\n", agendamentos[i].id);
+                    fprintf(fRelatorio, "Data: %s\n", agendamentos[i].data);
+                    fprintf(fRelatorio, "Horario: %s\n", agendamentos[i].horario);
+
+                    // Busca o colaborador associado a este agendamento para exibir o nome.
+                    Colab *colabAtual = NULL;
+                    for (int k = 0; k < *qtdColaboradores; k++) {
+                        if (colaboradores[k].id == agendamentos[i].idColab) {
+                            colabAtual = &colaboradores[k];
+                            break;
+                        }
+                    }
+
+                    // Se o colaborador for encontrado, escreve seu nome e os serviços.
+                    if (colabAtual != NULL) {
+                         fprintf(fRelatorio, "Colaborador: %s\n", colabAtual->nome);
+                         fprintf(fRelatorio, "Servicos Solicitados:\n");
+                         // Percorre os serviços do agendamento e os escreve no arquivo.
+                         for (int j = 0; j < colabAtual->nServicos; j++) {
+                            if(strlen(agendamentos[i].servicoDesejado[j]) > 0)
+                                fprintf(fRelatorio, "- %s\n", agendamentos[i].servicoDesejado[j]);
+                        }
+                    }
+                    fprintf(fRelatorio, "\n--------------------------------------------------\n\n");
+                }
+            }
+            break;
+        }
+        // Caso 2: Relatório por ID do Colaborador (lógica similar ao caso 1).
+        case 2: {
+            int idCol;
+            printf("Informe o ID do colaborador: ");
+            scanf("%d", &idCol);
+
+            // Busca pelo colaborador correspondente ao ID informado.
+            Colab *colaboradorEncontrado = NULL;
+            for (int i = 0; i < *qtdColaboradores; i++) {
+                if (colaboradores[i].id == idCol) {
+                    colaboradorEncontrado = &colaboradores[i];
+                    break;
+                }
+            }
+
+            if (colaboradorEncontrado == NULL) {
+                printf("Nenhum colaborador encontrado com o ID %d.\n", idCol);
+                fclose(fRelatorio);
+                return;
+            }
+
+            // Escreve o cabeçalho e as informações do colaborador no arquivo.
+            fprintf(fRelatorio, "--- RELATORIO DE AGENDAMENTOS POR COLABORADOR ---\n\n");
+            fprintf(fRelatorio, "Colaborador: %s\n", colaboradorEncontrado->nome);
+            fprintf(fRelatorio, "ID: %d\n", colaboradorEncontrado->id);
+            fprintf(fRelatorio, "Celular: %lld\n\n", colaboradorEncontrado->celular);
+            fprintf(fRelatorio, "--------------------------------------------------\n\n");
+
+            // Percorre os agendamentos para encontrar os associados ao colaborador.
+            for (int i = 0; i < *qtdAgendamentos; i++) {
+                if (agendamentos[i].idColab == idCol) {
+                    encontrou = 1;
+                    fprintf(fRelatorio, "Agendamento ID: %ld\n", agendamentos[i].id);
+                    fprintf(fRelatorio, "Data: %s\n", agendamentos[i].data);
+                    fprintf(fRelatorio, "Horario: %s\n", agendamentos[i].horario);
+
+                    // Busca o cliente associado a este agendamento para exibir o nome.
+                     Cliente *clienteAtual = NULL;
+                    for (int j = 0; j < *qtdClientes; j++) {
+                        if (strcmp(clientes[j].cpf, agendamentos[i].cpfCliente) == 0) {
+                            clienteAtual = &clientes[j];
+                            break;
+                        }
+                    }
+                    if(clienteAtual != NULL)
+                        fprintf(fRelatorio, "Cliente: %s (CPF: %s)\n", clienteAtual->nome, clienteAtual->cpf);
+
+
+                    fprintf(fRelatorio, "Servicos Solicitados:\n");
+                     for (int j = 0; j < colaboradorEncontrado->nServicos; j++) {
+                        if(strlen(agendamentos[i].servicoDesejado[j]) > 0)
+                            fprintf(fRelatorio, "- %s\n", agendamentos[i].servicoDesejado[j]);
+                    }
+                    fprintf(fRelatorio, "\n--------------------------------------------------\n\n");
+                }
+            }
+            break;
+        }
+        // Caso 3: Relatório por Data (lógica similar aos anteriores).
+        case 3: {
+            char data[9];
+            printf("Informe a data (dd/MM/YY): ");
+            scanf(" %[^\n]s", data);
+
+            int data1 = converterData(data);
+
+            // Escreve o cabeçalho do relatório no arquivo.
+            fprintf(fRelatorio, "--- RELATORIO DE AGENDAMENTOS A PARTIR DA DATA: %s ---\n\n", data);
+
+            // Percorre todos os agendamentos para encontrar os da data especificada.
+            for (int i = 0; i < *qtdAgendamentos; i++) {
+                if (converterData(agendamentos[i].data) >= data1) {
+                    encontrou = 1;
+                    fprintf(fRelatorio, "Agendamento ID: %ld\n", agendamentos[i].id);
+                    fprintf(fRelatorio, "Data: %s\n", agendamentos[i].data);
+                    fprintf(fRelatorio, "Horario: %s\n", agendamentos[i].horario);
+
+                    // Busca o nome do cliente e do colaborador para cada agendamento.
+                    Cliente *clienteAtual = NULL;
+                    for (int j = 0; j < *qtdClientes; j++) {
+                        if (strcmp(clientes[j].cpf, agendamentos[i].cpfCliente) == 0) {
+                            clienteAtual = &clientes[j];
+                            break;
+                        }
+                    }
+
+                    Colab *colabAtual = NULL;
+                    for (int k = 0; k < *qtdColaboradores; k++) {
+                        if (colaboradores[k].id == agendamentos[i].idColab) {
+                            colabAtual = &colaboradores[k];
+                            break;
+                        }
+                    }
+
+                    // Escreve os nomes encontrados no arquivo.
+                    if(clienteAtual != NULL)
+                        fprintf(fRelatorio, "Cliente: %s\n", clienteAtual->nome);
+                    else
+                        fprintf(fRelatorio, "Cliente: Nao encontrado\n");
+
+                    if(colabAtual != NULL)
+                        fprintf(fRelatorio, "Colaborador: %s\n", colabAtual->nome);
+                    else
+                         fprintf(fRelatorio, "Colaborador: Nao encontrado\n");
+
+                    fprintf(fRelatorio, "Servicos Solicitados:\n");
+                     for (int j = 0; j < colabAtual->nServicos; j++) {
+                        if(strlen(agendamentos[i].servicoDesejado[j]) > 0)
+                            fprintf(fRelatorio, "- %s\n", agendamentos[i].servicoDesejado[j]);
+                    }
+
+                    fprintf(fRelatorio, "\n--------------------------------------------------\n\n");
+                }
+            }
+            break;
+        }
+        default:
+            printf("Opcao invalida.\n");
+    }
+
+    // Fecha o arquivo para garantir que todos os dados sejam salvos.
+    fclose(fRelatorio);
+
+    // Informa ao usuário o resultado da operação.
+    if (encontrou) {
+        printf("\nRelatorio 'relatorio.txt' gerado com sucesso!\n");
+    } else {
+        printf("\nNenhum agendamento encontrado para o criterio informado. O arquivo de relatorio foi gerado vazio.\n");
+    }
+}

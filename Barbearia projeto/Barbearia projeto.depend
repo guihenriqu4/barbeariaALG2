@@ -79,7 +79,7 @@
 
 1757568517 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\headers\structs.h
 
-1757603732 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\implementation\colab.c
+1757614873 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\implementation\colab.c
 	"../headers/colab.h"
 	<stdio.h>
 	<stdlib.h>
@@ -89,7 +89,7 @@
 	<stdio.h>
 	"structs.h"
 
-1757604242 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\barbearia projeto\main.c
+1757615277 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\barbearia projeto\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -97,7 +97,7 @@
 	"../headers/colab.h"
 	"../headers/agendamento.h"
 
-1757571021 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\headers\agendamento.h
+1757615135 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\headers\agendamento.h
 	<stdio.h>
 	"structs.h"
 
@@ -142,4 +142,12 @@
 	"../headers/cliente.h"
 	"../headers/colab.h"
 	"../headers/agendamento.h"
+
+1757615115 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\implementation\agendamento.c
+	"../headers/agendamento.h"
+	"../headers/cliente.h"
+	"../headers/colab.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
 

@@ -1,0 +1,98 @@
+--- RELATORIO DE AGENDAMENTOS A PARTIR DA DATA: 28/11/23 ---
+
+Agendamento ID: 1
+Data: 14/02/25
+Horario: 09:00
+Cliente: Lucas Andrade
+Colaborador: Lucas Ferreira
+Servicos Solicitados:
+- Corte de cabelo
+- Barba
+
+--------------------------------------------------
+
+Agendamento ID: 2
+Data: 23/05/24
+Horario: 10:30
+Cliente: Mariana Costa
+Colaborador: Ana Beatriz
+Servicos Solicitados:
+- Hidratacao
+
+--------------------------------------------------
+
+Agendamento ID: 4
+Data: 11/12/24
+Horario: 16:00
+Cliente: Juliana Martins
+Colaborador: Camila Dias
+Servicos Solicitados:
+- Barboterapia
+- Corte de cabelo
+
+--------------------------------------------------
+
+Agendamento ID: 5
+Data: 07/08/25
+Horario: 11:00
+Cliente: Thiago Oliveira
+Colaborador: Gustavo Lima
+Servicos Solicitados:
+- Corte de cabelo
+- Barba
+
+--------------------------------------------------
+
+Agendamento ID: 6
+Data: 12/03/25
+Horario: 13:30
+Cliente: Mariana Silva
+Colaborador: Fabio Almeida
+Servicos Solicitados:
+- Tratamento capilar
+- Hidratacao
+
+--------------------------------------------------
+
+Agendamento ID: 7
+Data: 05/07/24
+Horario: 15:00
+Cliente: Carlos Eduardo
+Colaborador: Patricia Lima
+Servicos Solicitados:
+- Sobrancelha
+
+--------------------------------------------------
+
+Agendamento ID: 8
+Data: 28/11/23
+Horario: 17:30
+Cliente: Fernanda Oliveira
+Colaborador: Bruno Carvalho
+Servicos Solicitados:
+- Corte de cabelo
+- Barba
+
+--------------------------------------------------
+
+Agendamento ID: 9
+Data: 09/01/25
+Horario: 09:30
+Cliente: Joao Pedro Santos
+Colaborador: Aline Souza
+Servicos Solicitados:
+- Barba
+
+--------------------------------------------------
+
+Agendamento ID: 10
+Data: 21/08/24
+Horario: 18:00
+Cliente: Beatriz Almeida
+Colaborador: Renato Silva
+Servicos Solicitados:
+- Corte de cabelo
+- Hidratacao
+
+--------------------------------------------------
+

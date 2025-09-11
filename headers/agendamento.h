@@ -16,4 +16,6 @@ void alterarAgendamento(Agendamento **agendamentos, long int *qtdAgen, Cliente *
 
 void removerAgendamentos(Agendamento **agendamentos, long int *qtdAgendamentos, FILE *fagen);
 
+void gerarRelatorio(Agendamento *agendamentos, long int *qtdAgendamentos, Cliente *clientes, int *qtdClientes, Colab *colaboradores, int *qtdColaboradores);
+
 #endif
