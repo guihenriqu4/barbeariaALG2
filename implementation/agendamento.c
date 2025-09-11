@@ -92,8 +92,11 @@ void inserirAgendamento(Agendamento **p, Cliente *clientes, int *qtdClientes, Co
 
 // CPF do cliente, retornando: Agendamentos ativos, nome e celular vinculados a esse CPF.
 // Colocar a struct Agendamento como parâmetro, junto a quantidade de agendamentos, struct Cliente e quantidade de clientes, struct Colab e quantidade de colaboradores, por fim o CPF a ser buscado.
-void buscarAgendamentosPorCPF(Agendamento *agendamentos, long int *qtdAgendamentos, Cliente *clientes, int *qtdClientes, Colab *colaboradores, int *qtdColaboradores, char *cpf) {
+void buscarAgendamentosPorCPF(Agendamento *agendamentos, long int *qtdAgendamentos, Cliente *clientes, int *qtdClientes, Colab *colaboradores, int *qtdColaboradores) {
     int encontrouAgendamento = 0;
+    char cpf[15];
+    printf("Informe o CPF do cliente: ");
+    scanf(" %[^\n]s", cpf);
 
     printf("--- Agendamentos para o CPF: %s ---\n", cpf);
     // Aqui é criado uma struct clientes que aponta para NULL
@@ -152,22 +155,25 @@ void buscarAgendamentosPorCPF(Agendamento *agendamentos, long int *qtdAgendament
 
 //ID do colaborador, retornando: Agendamentos ativos, nome, celular e serviços vinculados a esse ID.
 //Colocar a struct Agendamento como parâmetro, junto a quantidade de agendamentos, struct Colab e quantidade de colaboradores, por fim o ID a ser buscado.
-void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, long int *qtdAgendamentos, Colab *colaboradores, int *qtdColaboradores, int idColab){
+void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, long int *qtdAgendamentos, Colab *colaboradores, int *qtdColaboradores){
     int encontrouAgendamento = 0;
+    int idCol;
+    printf("Informe o ID do colaborador: ");
+    scanf("%d", &idCol);
 
-    printf("--- Agendamentos para o ID do Colaborador: %d ---\n", idColab);
+    printf("--- Agendamentos para o ID do Colaborador: %d ---\n", idCol);
     // Aqui eu crio uma struct colaboradores que aponta para NULL
     // Depois se encontrar eu aponto essa struct para o colaborador desse ID
     Colab *colaboradorEncontrado = NULL;
     for (int i = 0; i < *qtdColaboradores; i++) {
-        if (colaboradores[i].id == idColab) {
+        if (colaboradores[i].id == idCol) {
             colaboradorEncontrado = &colaboradores[i];
             break;
         }
     }
 
     if (colaboradorEncontrado == NULL) {
-        printf("Nenhum colaborador encontrado com o ID %d.\n", idColab);
+        printf("Nenhum colaborador encontrado com o ID %d.\n", idCol);
         return;
     }
 
@@ -182,7 +188,7 @@ void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, long int *qtdAgen
 
     // Agora, busca pelos agendamentos, basicamanete compara o ID do agendamento com o ID buscado e printa os dados
     for (int i = 0; i < *qtdAgendamentos; i++) {
-        if (agendamentos[i].idColab == idColab) {
+        if (agendamentos[i].idColab == idCol) {
             encontrouAgendamento = 1;
             printf("---Informacoes do Agendamento %d ---\n", i + 1);
             printf("ID do Agendamento: %ld\n", agendamentos[i].id);
@@ -197,15 +203,18 @@ void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, long int *qtdAgen
         }
     }
     if (encontrouAgendamento == 0) {
-        printf("Nenhum agendamento encontrado para o ID do Colaborador %d.\n", idColab);
+        printf("Nenhum agendamento encontrado para o ID do Colaborador %d.\n", idCol);
     }
 }
 
 //Data indicada pelo usuário, retornando: Horários agendados, com nome do colaborador e do cliente
 //Colocar a struct Agendamento como parametro, junto a quantidade de agendamentos, struct Cliente e quantidade de clientes, struct Colab e quantidade de colaboradores, por fim a data a ser buscada.
 //Data: formato dd/MM/YY
-void buscarAgendamentosPorData(Agendamento *agendamentos, long int *qtdAgendamentos, Cliente *clientes, int *qtdClientes, Colab *colaboradores, int *qtdColaboradores, char *data) {
+void buscarAgendamentosPorData(Agendamento *agendamentos, long int *qtdAgendamentos, Cliente *clientes, int *qtdClientes, Colab *colaboradores, int *qtdColaboradores) {
     int encontrouAgendamento = 0;
+    char data[9];
+    printf("Informe a data: ");
+    scanf(" %[^\n]s", data);
 
     printf("--- Agendamentos para a Data: %s ---\n", data);
 
