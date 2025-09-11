@@ -15,7 +15,7 @@ void inserirAgendamento(Agendamento **p, Cliente *clientes, int *qtdClientes, Co
 
         fagen = fopen("agendamentos.bin", "wb");
         if(fagen == NULL){
-            perror("Erro ao abrir o arquivo.");
+            printf("Erro ao abrir o arquivo.");
             exit(1);
         }
 
@@ -369,7 +369,7 @@ void alterarAgendamento(Agendamento **agendamentos, long int *qtdAgen, Cliente *
         return;
     }
     fwrite(qtdAgen,sizeof(long int),1,fagen);
-    fwrite(*agendamentos, sizeof(Agendamento), 1, fagen);
+    fwrite(*agendamentos, sizeof(Agendamento), *qtdAgen, fagen);
     fclose(fagen);
     printf("\nAgendamento alterado com sucesso!\n");
 
