@@ -22,6 +22,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../headers/structs.h" />
 		<Unit filename="../headers/agendamento.h" />
 		<Unit filename="../headers/cliente.h" />
 		<Unit filename="../headers/colab.h" />
@@ -29,6 +30,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../implementation/colab.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../implementation/agendamento.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Barbearia projeto.cbp" />

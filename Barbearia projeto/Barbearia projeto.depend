@@ -101,3 +101,45 @@
 	<stdio.h>
 	"structs.h"
 
+1757613690 source:c:\users\guilh\desktop\area-trabalho\ufu\alg2\barbeariaalg2\implementation\agendamento.c
+	"../headers/agendamento.h"
+	"../headers/cliente.h"
+	"../headers/colab.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1757610624 c:\users\guilh\desktop\area-trabalho\ufu\alg2\barbeariaalg2\headers\agendamento.h
+	<stdio.h>
+	"structs.h"
+
+1757610624 c:\users\guilh\desktop\area-trabalho\ufu\alg2\barbeariaalg2\headers\structs.h
+
+1757610624 c:\users\guilh\desktop\area-trabalho\ufu\alg2\barbeariaalg2\headers\cliente.h
+	<stdio.h>
+	"structs.h"
+
+1757610624 c:\users\guilh\desktop\area-trabalho\ufu\alg2\barbeariaalg2\headers\colab.h
+	<stdio.h>
+	"structs.h"
+
+1757610624 source:c:\users\guilh\desktop\area-trabalho\ufu\alg2\barbeariaalg2\implementation\cliente.c
+	"../headers/cliente.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1757613377 source:c:\users\guilh\desktop\area-trabalho\ufu\alg2\barbeariaalg2\implementation\colab.c
+	"../headers/colab.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1757611670 source:c:\users\guilh\desktop\area-trabalho\ufu\alg2\barbeariaalg2\barbearia projeto\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../headers/cliente.h"
+	"../headers/colab.h"
+	"../headers/agendamento.h"
+

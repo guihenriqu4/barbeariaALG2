@@ -45,7 +45,7 @@ void inserirColab(Colab **p, FILE *fcolab, int *qtdColab) {
     do{
         printf("Informe a quantidade de servicos que esse colaborador presta (ate 5): ");
         scanf("%d", &n);
-    }while(n > 5);
+    }while(n <= 0 || n > 5);
 
     c.nServicos = n;
 
@@ -114,7 +114,7 @@ void alterarColabs(Colab **colabs, int *qtdColab, FILE *fcolabs){
                 printf("\nInforme a nova quantidade de servicos que esse colaborador presta (ate 5): ");
                 scanf("%d",&N);
 
-            } while(N > 5);
+            } while(N <= 0 || N > 5);
 
             (*colabs)[i].nServicos=N;//nServicos recebe a quantidade de serviços que o colaborador terá agora
 
@@ -179,7 +179,6 @@ void removerColabs(Colab **colabs, Agendamento *agendamentos, long int *qtdAgend
         return;
     }
 
-
     // Substitui pelo último colaborador do vetor
     (*colabs)[posicao] = (*colabs)[*qtdColab - 1];
     (*qtdColab)--;
@@ -193,6 +192,7 @@ void removerColabs(Colab **colabs, Agendamento *agendamentos, long int *qtdAgend
         perror("Erro ao realocar memoria apos remocao de colaborador");
         exit(1);
     }
+
 
     // 🔹 Atualiza arquivo binário
     fcolabs = fopen("colabs.bin", "wb");
