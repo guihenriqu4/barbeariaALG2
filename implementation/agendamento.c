@@ -338,6 +338,9 @@ void alterarAgendamento(Agendamento **agendamentos, long int *qtdAgen, Cliente *
 }
 
 void removerAgendamentos(Agendamento **agendamentos, long int *qtdAgen, FILE *fagen) {
+    if(capacidadeA == 0 && *qtdAgen > 0){
+        capacidadeA = *qtdAgen + INCREMENTO;
+    }
     if (*qtdAgen == 0) {
         printf("\nNenhum agendamento para remover.\n\n");
         return;
