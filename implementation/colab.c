@@ -18,6 +18,7 @@ void inserirColab(Colab **p, FILE *fcolab, int *qtdColab) {
             exit(1);
         }
 
+        fwrite(qtdColab,sizeof(int),1,fcolab);
         int result = fwrite(*p, sizeof(Colab), *qtdColab, fcolab); //Salva os dados do vetor colabs no arquivo binário
         if(result < *qtdColab) perror("Erro na gravacao de algum dos colaboradores."); //Verifica se houve algum erro na escrita
 
@@ -25,7 +26,7 @@ void inserirColab(Colab **p, FILE *fcolab, int *qtdColab) {
 
         capacidadeC += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
         (*p) = (Colab *) realloc((*p), capacidadeC * sizeof(Colab)); //Realoca memória de acordo com o bloco
-        if(p == NULL){ //Verifica se a alocação foi bem sucedida
+        if(*p == NULL){ //Verifica se a alocação foi bem sucedida
             perror("Erro ao realocar memoria\n");
             return;
         }
@@ -132,7 +133,7 @@ void alterarColabs(Colab **colabs, int *qtdColab, FILE *fcolabs){
             fwrite(qtdColab,sizeof(int),1,fcolabs);
 
             //Escreve o vetor inteiro de colaboradores com os novos dados
-            fwrite(&(*colabs)[i],sizeof(Colab),1,fcolabs);
+            fwrite(*colabs,sizeof(Colab),*qtdColab,fcolabs);
             fclose(fcolabs);//Fecha o arquivo para salvar a alteracao
 
             printf("\n\nColaborador alterado com sucesso!\n\n");//Garante para o usuario que ocorreu tudo certo
@@ -199,7 +200,8 @@ void removerColabs(Colab **colabs, Agendamento *agendamentos, long int *qtdAgend
         perror("\nErro: nao foi possivel abrir o arquivo colabs\n");
         exit(1);
     }
-    fwrite(*colabs, sizeof(Colab), *qtdColab, fcolabs);
+    fwrite(qtdColab,sizeof(int),1,fcolabs);//Salva a nova quantidade de colaboradores
+    fwrite(*colabs, sizeof(Colab), *qtdColab, fcolabs);//Salva o vetor colaboradores
     fclose(fcolabs);
 
 

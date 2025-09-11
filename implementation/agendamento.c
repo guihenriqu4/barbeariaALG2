@@ -20,6 +20,7 @@ void inserirAgendamento(Agendamento **p, Cliente *clientes, int *qtdClientes, Co
             exit(1);
         }
 
+        fwrite(qtdAgen,sizeof(long int),1,fagen);
         int result = fwrite(*p, sizeof(Agendamento), *qtdAgen, fagen); //Salva os dados do vetor agendamentos no arquivo binário
         if(result < *qtdAgen) perror("Erro na gravacao de algum dos agendamentos."); //Verifica se houve algum erro na escrita
 
@@ -50,13 +51,14 @@ void inserirAgendamento(Agendamento **p, Cliente *clientes, int *qtdClientes, Co
     }
     if(r == 0){
         perror("Cliente nao encontrado.");
-        exit(1);
+        return;
     }
 
     printf("Informe o ID do colaborador: ");
     scanf("%d", &a.idColab);
 
     //Verifica se o cliente existe antes de cadastrar o agendamento
+    r = 0;
     for(int i = 0; i < *qtdColabs; i++){
         if(colabs[i].id == a.idColab){
             r = 1;
@@ -65,7 +67,7 @@ void inserirAgendamento(Agendamento **p, Cliente *clientes, int *qtdClientes, Co
     }
     if(r == 0){
         perror("Colaborador nao encontrado.");
-        exit(1);
+        return;
     }
 
     printf("Informe a data do agendamento (dd/MM//YY): ");
@@ -318,11 +320,98 @@ void alterarAgendamento(Agendamento **agendamentos, long int *qtdAgen, Cliente *
             break;
         }
 
+        /*case 3: {
+            char cpfBusca[15];
+            printf("\nInforme o CPF do cliente (000.000.000-00): ");
+            scanf(" %[^\n]s", cpfBusca);
+
+            printf("\n--- Agendamentos para o CPF: %s ---\n", cpfBusca);
+            long int idsEncontrados[*qtdAgen];
+            int contagem = 0;
+
+            for (int i = 0; i < *qtdAgen; i++) {
+                if (strcmp((*agendamentos)[i].cpfCliente, cpfBusca) == 0) {
+                    printf("--- Agendamento [%d] ---\n", contagem + 1);
+                    printf(" ID: %ld\n", (*agendamentos)[i].id);
+                    printf(" Data: %s\n", (*agendamentos)[i].data);
+                    printf(" Horario: %s\n", (*agendamentos)[i].horario);
+                    printf(" Servicos Desejados:\n");
+                    for(int j=0;i<5;j++){
+                        if(strlen((*agendamentos)[i].servicoDesejado[j]) > 0) {
+                            printf(" -%s\n",(*agendamentos[i].servicoDesejado[j]));
+                        }
+                    }
+                    printf("\n");
+                    idsEncontrados[contagem] = (*agendamentos)[i].id;
+                    contagem++;
+                }
+            }
+
+            if (contagem == 0) {
+                printf("Nenhum agendamento encontrado para o CPF %s.\n", cpfBusca);
+                return;
+            }
+
+            int escolha;
+            printf("\nEscolha o numero do agendamento que deseja alterar: ");
+            scanf("%d", &escolha);
+
+            if (escolha > 0 && escolha <= contagem) {
+                idBusca = idsEncontrados[escolha - 1];
+            } else {
+                printf("Opcao invalida.\n");
+                return;
+            }
+            break;
+        }
+
+        case 4{
+            int idColabBusca;
+            printf("Informe o ID do colaborador: ");
+            scanf("%d", &idColabBusca);
+
+            printf("\n--- Agendamentos para o Colaborador ID: %d ---\n", idColabBusca);
+            long int idsEncontrados[*qtdAgen];
+            int contagem = 0;
+
+            for (int i = 0; i < *qtdAgen; i++) {
+                if ((*agendamentos)[i].idColab == idColabBusca) {
+                    printf("--- Agendamento [%d] ---\n", contagem + 1);
+                    printf(" ID: %ld\n", (*agendamentos)[i].id);
+                    printf(" Data: %s\n", (*agendamentos)[i].data);
+                    printf(" Horario: %s\n", (*agendamentos)[i].horario);
+                    idsEncontrados[contagem] = (*agendamentos)[i].id;
+                    contagem++;
+                }
+            }
+
+            if (contagem == 0) {
+                printf("Nenhum agendamento encontrado para o colaborador com ID %d.\n", idColabBusca);
+                return;
+            }
+
+            int escolha;
+            printf("\nEscolha o numero do agendamento que deseja alterar: ");
+            scanf("%d", &escolha);
+
+            if (escolha > 0 && escolha <= contagem) {
+                idBusca = idsEncontrados[escolha - 1];
+            } else {
+                printf("Opcao invalida.\n");
+                return;
+            }
+            break;
+        }*/
+
         case 3:{
             break;
         }
         default: {//Qualquer entrada invalida no menu eh detectada
             printf("Opcao de busca invalida!\n");
+            return;
+        }
+        if (idBusca == -1){
+            printf("ID de Agendamento invalido!\n");
             return;
         }
     }
@@ -450,6 +539,7 @@ void removerAgendamentos(Agendamento **agendamentos, long int *qtdAgen, FILE *fa
         perror("Erro ao abrir o arquivo de agendamentos.");
         exit(1);
     }
+    fwrite(qtdAgen,sizeof(long int),1,fagen);
     fwrite(*agendamentos, sizeof(Agendamento), *qtdAgen, fagen);
     fclose(fagen);
 

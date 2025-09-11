@@ -1,17 +1,5 @@
 # depslib dependency file v1.0
-1757600145 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\implementation\cliente.c
-	"../headers/cliente.h"
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-
-1757599827 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\headers\cliente.h
-	<stdio.h>
-	"structs.h"
-
-1757601478 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\headers\structs.h
-
-1757599789 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\barbearia projeto\main.c
+1757597372 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2(agora certo)\barbearia projeto\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -19,11 +7,97 @@
 	"../headers/colab.h"
 	"../headers/agendamento.h"
 
-1757600030 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\headers\colab.h
+1757561801 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2(agora certo)\headers\cliente.h
 	<stdio.h>
 	"structs.h"
 
-1757600170 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\headers\agendamento.h
+1757568517 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2(agora certo)\headers\structs.h
+
+1757561810 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2(agora certo)\headers\colab.h
+	<stdio.h>
+	"structs.h"
+
+1757571021 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2(agora certo)\headers\agendamento.h
+	<stdio.h>
+	"structs.h"
+
+1757597553 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2(agora certo)\implementation\cliente.c
+	"../headers/cliente.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1757597604 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2(agora certo)\implementation\colab.c
+	"../headers/colab.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1757603268 source:c:\users\felipe piva\desktop\ufu\alg2\prototipobarbeariaalg2\implementation\cliente.c
+	"../headers/cliente.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1757561801 c:\users\felipe piva\desktop\ufu\alg2\prototipobarbeariaalg2\headers\cliente.h
+	<stdio.h>
+	"structs.h"
+
+1757568517 c:\users\felipe piva\desktop\ufu\alg2\prototipobarbeariaalg2\headers\structs.h
+
+1757603732 source:c:\users\felipe piva\desktop\ufu\alg2\prototipobarbeariaalg2\implementation\colab.c
+	"../headers/colab.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1757561810 c:\users\felipe piva\desktop\ufu\alg2\prototipobarbeariaalg2\headers\colab.h
+	<stdio.h>
+	"structs.h"
+
+1757604242 source:c:\users\felipe piva\desktop\ufu\alg2\prototipobarbeariaalg2\barbearia projeto\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../headers/cliente.h"
+	"../headers/colab.h"
+	"../headers/agendamento.h"
+
+1757571021 c:\users\felipe piva\desktop\ufu\alg2\prototipobarbeariaalg2\headers\agendamento.h
+	<stdio.h>
+	"structs.h"
+
+1757603268 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\implementation\cliente.c
+	"../headers/cliente.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1757561801 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\headers\cliente.h
+	<stdio.h>
+	"structs.h"
+
+1757568517 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\headers\structs.h
+
+1757603732 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\implementation\colab.c
+	"../headers/colab.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1757561810 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\headers\colab.h
+	<stdio.h>
+	"structs.h"
+
+1757604242 source:c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\barbearia projeto\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"../headers/cliente.h"
+	"../headers/colab.h"
+	"../headers/agendamento.h"
+
+1757571021 c:\users\felipe piva\desktop\ufu\alg2\barbeariaalg2\headers\agendamento.h
 	<stdio.h>
 	"structs.h"
 

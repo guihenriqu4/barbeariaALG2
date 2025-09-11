@@ -17,6 +17,7 @@ void inserirCliente(Cliente **p, FILE *fcliente, int *qtdCliente){
             exit(1);
         }
 
+        fwrite(qtdCliente,sizeof(int),1,fcliente);
         int result = fwrite(*p, sizeof(Cliente), *qtdCliente, fcliente); //Salva os dados do vetor clientes no arquivo binário
         if(result < *qtdCliente) perror("Erro na gravacao de algum dos clientes."); //Verifica se houve algum erro na escrita
 
@@ -109,7 +110,7 @@ void alterarClientes(Cliente **clientes, int *qtdCliente, FILE *fcliente){
             }
 
             fwrite(qtdCliente,sizeof(int),1,fcliente);//Escreve a quantidade de clientes no inicio do arquivo
-            fwrite(*clientes,sizeof(Cliente),*qtdCliente,fcliente);//Escreve o vetor clientes com os novos dados
+            fwrite(*clientes,sizeof(Cliente),*qtdCliente,fcliente);//Sobrescreve o registro antigo com os novos dados
             fclose(fcliente);//Fecha o arquivo
 
             printf("\nCliente alterado com sucesso!\n");//Garante ao usuario que a alteração tenha sido concluida
@@ -174,7 +175,8 @@ void removerClientes(Cliente **clientes, Agendamento *agendamentos, long int *qt
         perror("\nErro: nao foi possivel abrir o arquivo clientes\n");
         exit(1);
     }
-    fwrite(*clientes, sizeof(Cliente), *qtdCliente, fcliente);
+    fwrite(qtdCliente,sizeof(int),1,fcliente);//Salva a nova quantidade de clientes no inicio do programa
+    fwrite(*clientes, sizeof(Cliente), *qtdCliente, fcliente);//Salva o vetor clientes
     fclose(fcliente);
 
     printf("\nCliente removido com sucesso!\n");

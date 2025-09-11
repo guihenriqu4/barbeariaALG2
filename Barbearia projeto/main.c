@@ -185,38 +185,42 @@ long int qtdAgend = 0;
 //     fclose(fcolabs);
 // }
 
-void inicializarDados(){
+void inicializarDados() {
+    // Carrega Clientes se o arquivo existir
     fcliente = fopen("clientes.bin", "rb");
-    if(fcliente == NULL){
-        perror("Erro ao abrir arquivo clientes\n");
-        exit(1);
-    }
-    fread(&qtdCliente, sizeof(int), 1, fcliente);
-
-    clientes = (Cliente *) malloc(qtdCliente * sizeof(Cliente));
-    if(clientes == NULL){
-        perror("Erro ao alocar memória.\n");
-        exit(1);
+    if (fcliente != NULL) {
+        fread(&qtdCliente, sizeof(int), 1, fcliente);
+        if (qtdCliente > 0) {
+            clientes = (Cliente *) malloc(qtdCliente * sizeof(Cliente));
+            if (clientes == NULL) { exit(1); }
+            fread(clientes, sizeof(Cliente), qtdCliente, fcliente);
+        }
+        fclose(fcliente);
     }
 
-    fread(clientes, sizeof(Cliente), qtdCliente, fcliente);
-    fclose(fcliente);
-
+    // Carrega Colaboradores se o arquivo existir
     fcolabs = fopen("colabs.bin", "rb");
-    if(fcolabs == NULL){
-        perror("Erro ao abrir arquivo colabs\n");
-        exit(1);
-    }
-    fread(&qtdColab, sizeof(int), 1, fcolabs);
-
-    colabs = (Colab *) malloc(qtdColab * sizeof(Colab));
-    if(colabs == NULL){
-        perror("Erro ao alocar memória.\n");
-        exit(1);
+    if (fcolabs != NULL) {
+        fread(&qtdColab, sizeof(int), 1, fcolabs);
+        if (qtdColab > 0) {
+            colabs = (Colab *) malloc(qtdColab * sizeof(Colab));
+            if (colabs == NULL) { exit(1); }
+            fread(colabs, sizeof(Colab), qtdColab, fcolabs);
+        }
+        fclose(fcolabs);
     }
 
-    fread(colabs, sizeof(Colab), qtdColab, fcolabs);
-    fclose(fcolabs);
+    // Carrega Agendamentos se o arquivo existir
+    fagen = fopen("agendamentos.bin", "rb");
+    if (fagen != NULL) {
+        fread(&qtdAgend, sizeof(long int), 1, fagen);
+        if (qtdAgend > 0) {
+            agendamentos = (Agendamento *) malloc(qtdAgend * sizeof(Agendamento));
+            if (agendamentos == NULL) { exit(1); }
+            fread(agendamentos, sizeof(Agendamento), qtdAgend, fagen);
+        }
+        fclose(fagen);
+    }
 }
 
 void menuClientes() {
