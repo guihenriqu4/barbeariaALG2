@@ -151,3 +151,37 @@
 	<stdlib.h>
 	<string.h>
 
+1757617331 source:c:\users\guilherme\onedrive\햞ea de trabalho\faculdade\trabalho1\barbeariaalg2\implementation\agendamento.c
+	"../headers/agendamento.h"
+	"../headers/cliente.h"
+	"../headers/colab.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1757617331 c:\users\guilherme\onedrive\햞ea de trabalho\faculdade\trabalho1\barbeariaalg2\headers\agendamento.h
+	<stdio.h>
+	"structs.h"
+
+1757617331 c:\users\guilherme\onedrive\햞ea de trabalho\faculdade\trabalho1\barbeariaalg2\headers\structs.h
+
+1757617331 c:\users\guilherme\onedrive\햞ea de trabalho\faculdade\trabalho1\barbeariaalg2\headers\cliente.h
+	<stdio.h>
+	"structs.h"
+
+1757617331 c:\users\guilherme\onedrive\햞ea de trabalho\faculdade\trabalho1\barbeariaalg2\headers\colab.h
+	<stdio.h>
+	"structs.h"
+
+1757617331 source:c:\users\guilherme\onedrive\햞ea de trabalho\faculdade\trabalho1\barbeariaalg2\implementation\cliente.c
+	"../headers/cliente.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1757617331 source:c:\users\guilherme\onedrive\햞ea de trabalho\faculdade\trabalho1\barbeariaalg2\implementation\colab.c
+	"../headers/colab.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+

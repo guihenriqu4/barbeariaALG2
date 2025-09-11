@@ -3,39 +3,37 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define INCREMENTO 5 //Número constante que incrementará as posições em blocos de 5
+#define INCREMENTO 5
 
-int capacidadeC = 15; //Gerencia a capacidade do vetor de colaboradores (tamanho total alocado)
-int idColab = 10; //Utilizado para vincular identificadores aos colaboradores
+int capacidadeC = 15;
+int idColab = 10;
 
-//Cadastrando colaborador
 void inserirColab(Colab **p, FILE *fcolab, int *qtdColab) {
-    if(*qtdColab >= capacidadeC){ //Verifica se existem colaboradores suficientes para preencher completamente o vetor
+    if(*qtdColab >= capacidadeC){
 
-        fcolab = fopen("colabs.bin", "wb"); //Abre um arquivo binário colaboradores
-        if(fcolab == NULL){ //Verifica se houve algum erro na abertura do arquivo
+        fcolab = fopen("colabs.bin", "wb");
+        if(fcolab == NULL){
             perror("Erro ao abrir o arquivo colabs.");
             exit(1);
         }
 
         fwrite(qtdColab,sizeof(int),1,fcolab);
-        int result = fwrite(*p, sizeof(Colab), *qtdColab, fcolab); //Salva os dados do vetor colabs no arquivo binário
-        if(result < *qtdColab) perror("Erro na gravacao de algum dos colaboradores."); //Verifica se houve algum erro na escrita
+        int result = fwrite(*p, sizeof(Colab), *qtdColab, fcolab);
+        if(result < *qtdColab) perror("Erro na gravacao de algum dos colaboradores.");
 
-        fclose(fcolab); //Fecha o arquivo
+        fclose(fcolab);
 
-        capacidadeC += INCREMENTO; //Caso sim, aumenta a capacidade em um bloco de 5
-        (*p) = (Colab *) realloc((*p), capacidadeC * sizeof(Colab)); //Realoca memória de acordo com o bloco
-        if(*p == NULL){ //Verifica se a alocação foi bem sucedida
+        capacidadeC += INCREMENTO;
+        (*p) = (Colab *) realloc((*p), capacidadeC * sizeof(Colab));
+        if(*p == NULL){
             perror("Erro ao realocar memoria\n");
             return;
         }
     }
 
-    //Solicita as informações necessárias para inserir um novo colaborador
     Colab c;
     int n;
-    c.id = ++idColab; //Atribui um identificador ao colaborador em uma sequência crescente
+    c.id = ++idColab;
     printf("Informe o nome do colaborador: ");
     scanf(" %[^\n]s", c.nome);
 
@@ -49,34 +47,28 @@ void inserirColab(Colab **p, FILE *fcolab, int *qtdColab) {
 
     c.nServicos = n;
 
-    //Aloca 200 caracteres de memória em cada posição do vetor de serviços para guardar o nome do serviço prestado
     for(int i = 0; i < n; i++){
         printf("Informe o nome do servico %d: ", i+1);
         scanf(" %[^\n]s", c.servicosPrestados[i]);
     }
 
-    //Armazena o colaborador no vetor
     (*p)[*qtdColab] = c;
     printf("Colaborador inserido com sucesso! ID: %d\n", c.id);
-    (*qtdColab)++; //Indica que houve um aumento na quantidade de colaboradores
+    (*qtdColab)++;
 }
 
-//Listando todos os Colaboradores
 void listarColabs(Colab *colabs, int *qtdColab) {
-    //Verifica se existem colaboradores cadastrados
     if (*qtdColab == 0) {
         printf("Nenhum colaborador cadastrado.\n\n");
         return;
     }
 
-    //Percorre o vetor de colaboradores e imprime as informações de cada um
     for (int i = 0; i < *qtdColab; i++) {
         printf("-- Colaborador %d --\n", i + 1);
         printf(" ID: %d\n", colabs[i].id);
         printf(" Nome: %s\n", colabs[i].nome);
         printf(" Celular: %lld\n", colabs[i].celular);
 
-        //Verifica se o colaborador possui serviços prestados
         if(colabs[i].nServicos == 0) {
             printf(" Nenhum servico prestado.\n");
             continue;
@@ -90,21 +82,20 @@ void listarColabs(Colab *colabs, int *qtdColab) {
     }
 }
 
-//Alterando as informações dos Colaboradores
 void alterarColabs(Colab **colabs, int *qtdColab, FILE *fcolabs){
-    if (*qtdColab == 0){//Verifica se há colaboradores cadastrados
+    if (*qtdColab == 0){
        printf("\nNenhum colaborador cadastrado.\n\n");
        return;
     }
 
     int idBusca;
-    printf("\nInforme o ID do Colaborador que deseja alterar: ");//Recebe o ID (modo de identificar um colaborador) para saber qual será alterado
+    printf("\nInforme o ID do Colaborador que deseja alterar: ");
     scanf("%d",&idBusca);
 
     int colabEncontrado = 0;
     int N;
     for(int i = 0; i < *qtdColab; i++){
-        if((*colabs)[i].id == idBusca){//Encontra o ID do colaborador desejado
+        if((*colabs)[i].id == idBusca){
             printf("\nInforme o novo nome do Colaborador: ");
             scanf(" %[^\n]s",(*colabs)[i].nome);
             printf("\nInforme o novo celular do Colaborador (00900000000): ");
@@ -116,38 +107,34 @@ void alterarColabs(Colab **colabs, int *qtdColab, FILE *fcolabs){
 
             } while(N <= 0 || N > 5);
 
-            (*colabs)[i].nServicos=N;//nServicos recebe a quantidade de serviços que o colaborador terá agora
+            (*colabs)[i].nServicos=N;
 
             for(int j=0;j<N;j++){
                 printf("\nInforme o nome do servico %d: ", j+1);
                 scanf(" %[^\n]s", (*colabs)[i].servicosPrestados[j]);
             }
 
-            //Abre o arquivo em modo de leitura e escrita binaria para atualizacao
             fcolabs = fopen("colabs.bin","wb");
             if(fcolabs==NULL){
                 printf("\nErro ao abrir o arquivo colabs!\n");
                 return;
             }
-            //Escreve a quantidade de colaboradores no inicio do arquivo
             fwrite(qtdColab,sizeof(int),1,fcolabs);
 
-            //Escreve o vetor inteiro de colaboradores com os novos dados
             fwrite(*colabs,sizeof(Colab),*qtdColab,fcolabs);
-            fclose(fcolabs);//Fecha o arquivo para salvar a alteracao
+            fclose(fcolabs);
 
-            printf("\n\nColaborador alterado com sucesso!\n\n");//Garante para o usuario que ocorreu tudo certo
-            colabEncontrado = 1;//Sinaliza que o colaborador foi encontrado
+            printf("\n\nColaborador alterado com sucesso!\n\n");
+            colabEncontrado = 1;
             break;
         }
     }
 
-    if(!colabEncontrado){//Se nao existir o CPF, ou o usario tenha digitado algo errado
+    if(!colabEncontrado){
         printf("Colaborador com ID %d nao encontrado.", idBusca);
     }
 }
 
-//Deletando algum colaborador
 void removerColabs(Colab **colabs, Agendamento *agendamentos, long int *qtdAgendamentos, int *qtdColab, FILE *fcolabs) {
     if (*qtdColab == 0) {
         printf("\nNenhum colaborador cadastrado para remover.\n\n");
@@ -158,7 +145,6 @@ void removerColabs(Colab **colabs, Agendamento *agendamentos, long int *qtdAgend
     printf("Informe o ID do colaborador que deseja remover: ");
     scanf("%d", &idBusca);
 
-    // 🔹 Verifica se colaborador possui agendamentos
     for (int i = 0; i < *qtdAgendamentos; i++) {
         if (agendamentos[i].idColab == idBusca) {
             printf("\nNao e possivel remover o colaborador %d, pois possui agendamentos ativos.\n", idBusca);
@@ -179,11 +165,9 @@ void removerColabs(Colab **colabs, Agendamento *agendamentos, long int *qtdAgend
         return;
     }
 
-    // Substitui pelo último colaborador do vetor
     (*colabs)[posicao] = (*colabs)[*qtdColab - 1];
     (*qtdColab)--;
 
-    // Reduz a capacidade e realoca memória
     capacidadeC--;
     Colab *temp = realloc(*colabs, capacidadeC * sizeof(Colab));
     if (temp != NULL || capacidadeC == 0) {
@@ -194,14 +178,13 @@ void removerColabs(Colab **colabs, Agendamento *agendamentos, long int *qtdAgend
     }
 
 
-    // 🔹 Atualiza arquivo binário
     fcolabs = fopen("colabs.bin", "wb");
     if (fcolabs == NULL) {
         perror("\nErro: nao foi possivel abrir o arquivo colabs\n");
         exit(1);
     }
-    fwrite(qtdColab,sizeof(int),1,fcolabs);//Salva a nova quantidade de colaboradores
-    fwrite(*colabs, sizeof(Colab), *qtdColab, fcolabs);//Salva o vetor colaboradores
+    fwrite(qtdColab,sizeof(int),1,fcolabs);
+    fwrite(*colabs, sizeof(Colab), *qtdColab, fcolabs);
     fclose(fcolabs);
 
 

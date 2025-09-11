@@ -292,7 +292,6 @@ void inicializarDados() {
 */
 
  void inicializarDados() {
-     // Carrega Clientes se o arquivo existir
      fcliente = fopen("clientes.bin", "rb");
      if (fcliente != NULL) {
          fread(&qtdCliente, sizeof(int), 1, fcliente);
@@ -304,7 +303,6 @@ void inicializarDados() {
          fclose(fcliente);
      }
 
-     // Carrega Colaboradores se o arquivo existir
      fcolabs = fopen("colabs.bin", "rb");
      if (fcolabs != NULL) {
          fread(&qtdColab, sizeof(int), 1, fcolabs);
@@ -316,7 +314,6 @@ void inicializarDados() {
          fclose(fcolabs);
      }
 
-     // Carrega Agendamentos se o arquivo existir
      fagen = fopen("agendamentos.bin", "rb");
      if (fagen != NULL) {
          fread(&qtdAgend, sizeof(long int), 1, fagen);
@@ -330,7 +327,6 @@ void inicializarDados() {
  }
 
 void finalizarDados() {
-    // Carrega Clientes se o arquivo existir
     fcliente = fopen("clientes.bin", "wb");
     if (fcliente != NULL) {
         fwrite(&qtdCliente, sizeof(int), 1, fcliente);
@@ -338,7 +334,6 @@ void finalizarDados() {
         fclose(fcliente);
     }
 
-    // Carrega Colaboradores se o arquivo existir
     fcolabs = fopen("colabs.bin", "wb");
     if (fcolabs != NULL) {
         fwrite(&qtdColab, sizeof(int), 1, fcolabs);
@@ -346,7 +341,6 @@ void finalizarDados() {
         fclose(fcolabs);
     }
 
-    // Carrega Agendamentos se o arquivo existir
     fagen = fopen("agendamentos.bin", "wb");
     if (fagen != NULL) {
         fwrite(&qtdAgend, sizeof(long int), 1, fagen);
@@ -357,7 +351,7 @@ void finalizarDados() {
 
 void menuClientes() {
     int opcao;
-    int retorno_scanf; // Variavel para verificar o retorno do scanf
+    int retorno_scanf;
 
     do {
         printf("\n-- MENU CLIENTES --\n");
@@ -371,16 +365,13 @@ void menuClientes() {
         retorno_scanf = scanf("%d", &opcao);
 
         if (retorno_scanf == 0) {
-            // Se a leitura falhou, o usu�rio n�o digitou um n�mero
             printf("Opcao invalida, tente novamente.\n");
 
-            // Limpa o buffer de entrada
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
 
-            opcao = 0; // Atribui um valor inv�lido para garantir que o menu continue
+            opcao = 0;
         } else {
-            // Se a leitura foi um sucesso, executa o switch
             switch(opcao) {
                 case 1:
                     inserirCliente(&clientes, fcliente, &qtdCliente);
@@ -405,7 +396,7 @@ void menuClientes() {
 
 void menuColabs() {
     int opcao;
-    int retorno_scanf; // Vari�vel para verificar o retorno do scanf
+    int retorno_scanf;
 
     do {
         printf("\n-- MENU COLABORADORES --\n");
@@ -419,16 +410,13 @@ void menuColabs() {
         retorno_scanf = scanf("%d", &opcao);
 
         if (retorno_scanf == 0) {
-            // Se a leitura falhou, o usu�rio n�o digitou um n�mero
             printf("Opcao invalida, tente novamente.\n");
 
-            // Limpa o buffer de entrada
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
 
-            opcao = 0; // Atribui um valor inv�lido para garantir que o menu continue
+            opcao = 0;
         } else {
-            // Se a leitura foi um sucesso, executa o switch
             switch(opcao) {
                 case 1:
                     inserirColab(&colabs, fcolabs, &qtdColab);
@@ -453,7 +441,7 @@ void menuColabs() {
 
 void menuAgendamentos() {
     int opcao;
-    int retorno_scanf; // Vari�vel para verificar o retorno do scanf
+    int retorno_scanf;
 
     do {
        printf("\n-- MENU AGENDAMENTOS --\n");
@@ -468,16 +456,13 @@ void menuAgendamentos() {
        retorno_scanf = scanf("%d", &opcao);
 
        if (retorno_scanf == 0) {
-            // Se a leitura falhou, o usu�rio n�o digitou um n�mero
             printf("Opcao invalida, tente novamente.\n");
 
-            // Limpa o buffer de entrada
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
 
-            opcao = 0; // Atribui um valor inv�lido para garantir que o menu continue
+            opcao = 0;
        } else {
-            // Se a leitura foi um sucesso, executa o switch
             switch(opcao) {
                 case 1:
                     inserirAgendamento(&agendamentos, clientes, &qtdCliente, colabs, &qtdColab, &qtdAgend, fagen);
@@ -534,7 +519,7 @@ void menuAgendamentos() {
 
 void menuPrincipal() {
     int opcao;
-    int retorno_scanf; // Vari�vel para verificar o retorno do scanf
+    int retorno_scanf;
 
     do {
         printf("\n-- SISTEMA BARBEARIA --\n");
@@ -547,16 +532,13 @@ void menuPrincipal() {
         retorno_scanf = scanf("%d", &opcao);
 
         if (retorno_scanf == 0) {
-            // Se a leitura falhou, o usu�rio n�o digitou um n�mero
             printf("Opcao invalida, tente novamente.\n");
 
-            // Limpa o buffer de entrada
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
 
-            opcao = 0; // Atribui um valor inv�lido para garantir que o menu continue
+            opcao = 0;
         } else {
-            // Se a leitura foi um sucesso, executa o switch
             switch(opcao) {
                 case 1:
                     menuClientes();
