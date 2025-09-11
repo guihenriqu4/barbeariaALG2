@@ -47,7 +47,7 @@ void inserirAgendamento(Agendamento **p, Cliente *clientes, int *qtdClientes, Co
         }
     }
     if(r == 0){
-        perror("Cliente nao encontrado.");
+        perror("Cliente nao encontrado. Tente novamente");
         return;
     }
 
@@ -60,21 +60,35 @@ void inserirAgendamento(Agendamento **p, Cliente *clientes, int *qtdClientes, Co
         if(colabs[i].id == a.idColab){
             r = 1;
             c = &colabs[i];
-
             break;
         }
     }
 
     if(r == 0){
-        perror("Colaborador nao encontrado.");
+        perror("Colaborador nao encontrado. Tente novamente");
         return;
     }
 
-    printf("Informe a data do agendamento (dd/MM//YY): ");
-    scanf(" %[^\n]s", a.data);
+    int horarioDisponivel = 0;
+    do {
+        printf("Informe a data do agendamento (dd/MM/YY): ");
+        scanf(" %[^\n]s", a.data);
 
-    printf("Informe o horario do agendamento (HH:mm): ");
-    scanf(" %[^\n]s", a.horario);
+        printf("Informe o horario do agendamento (HH:mm): ");
+        scanf(" %[^\n]s", a.horario);
+
+        horarioDisponivel = 1;
+        for (int i = 0; i < *qtdAgen; i++) {
+            if ((*p)[i].idColab == a.idColab &&
+                strcmp((*p)[i].data, a.data) == 0 &&
+                strcmp((*p)[i].horario, a.horario) == 0) {
+
+                horarioDisponivel = 0;
+                printf("\nErro: O colaborador ja possui um agendamento neste horario. Por favor, escolha outra data/horario.\n\n");
+                break;
+            }
+        }
+    } while(!horarioDisponivel);
 
     do{
         printf("Informe quantos servicos foram solicitados (ate %d): ", c->nServicos);
@@ -98,7 +112,7 @@ void buscarAgendamentosPorCPF(Agendamento *agendamentos, long int *qtdAgendament
     printf("Informe o CPF do cliente: ");
     scanf(" %[^\n]s", cpf);
 
-    printf("--- Agendamentos para o CPF: %s ---\n", cpf);
+    printf("\n--- Agendamentos para o CPF: %s ---\n", cpf);
 
     Cliente *clienteEncontrado = NULL;
     for (int i = 0; i < *qtdClientes; i++) {
@@ -154,7 +168,7 @@ void buscarAgendamentosPorIDdoColab(Agendamento *agendamentos, long int *qtdAgen
     printf("Informe o ID do colaborador: ");
     scanf("%d", &idCol);
 
-    printf("--- Agendamentos para o ID do Colaborador: %d ---\n", idCol);
+    printf("\n--- Agendamentos para o ID do Colaborador: %d ---\n", idCol);
     Colab *colaboradorEncontrado = NULL;
     for (int i = 0; i < *qtdColaboradores; i++) {
         if (colaboradores[i].id == idCol) {
@@ -203,7 +217,7 @@ void buscarAgendamentosPorData(Agendamento *agendamentos, long int *qtdAgendamen
     printf("Informe a data: ");
     scanf(" %[^\n]s", data);
 
-    printf("--- Agendamentos para a Data: %s ---\n", data);
+    printf("\n--- Agendamentos para a Data: %s ---\n", data);
 
     for (int i = 0; i < *qtdAgendamentos; i++) {
         if (strcmp(agendamentos[i].data, data) == 0) {
@@ -270,6 +284,10 @@ void alterarAgendamento(Agendamento **agendamentos, long int *qtdAgen, Cliente *
     }
     printf("\nAgendamento encontrado! Por favor, insira as novas informacoes\n");
 
+    char dataOriginal[9],horarioOriginal[6];
+    strcpy(dataOriginal, (*agendamentos)[posicao].data);
+    strcpy(horarioOriginal, (*agendamentos)[posicao].horario);
+
     int nServicos,clienteValido,colabValido;
 
     do{
@@ -305,10 +323,30 @@ void alterarAgendamento(Agendamento **agendamentos, long int *qtdAgen, Cliente *
         }
     }while(!colabValido);
 
-    printf("Informe a nova data do agendamento (dd/MM/YY): ");
-    scanf(" %[^\n]s", (*agendamentos)[posicao].data);
-    printf("Informe o novo horario do agendamento (HH:mm): ");
-    scanf(" %[^\n]s", (*agendamentos)[posicao].horario);
+    int horarioDisponivel;
+     do {
+        printf("Informe a nova data do agendamento (dd/MM/YY): ");
+        scanf(" %[^\n]s", (*agendamentos)[posicao].data);
+        printf("Informe o novo horario do agendamento (HH:mm): ");
+        scanf(" %[^\n]s", (*agendamentos)[posicao].horario);
+
+        horarioDisponivel = 1;
+        for (int i = 0; i < *qtdAgen; i++) {
+            if (i == posicao) continue;
+
+            if ((*agendamentos)[i].idColab == (*agendamentos)[posicao].idColab &&
+                strcmp((*agendamentos)[i].data, (*agendamentos)[posicao].data) == 0 &&
+                strcmp((*agendamentos)[i].horario, (*agendamentos)[posicao].horario) == 0) {
+
+                horarioDisponivel = 0;
+                printf("\nErro: O colaborador ja possui um agendamento neste horario. Por favor, escolha outra data/horario.\n\n");
+                // Restaura data e horário para o original antes de pedir novamente
+                strcpy((*agendamentos)[posicao].data, dataOriginal);
+                strcpy((*agendamentos)[posicao].horario, horarioOriginal);
+                break;
+            }
+        }
+     }while(!horarioDisponivel);
 
     for(int i=0;i<5;i++){
         strcpy((*agendamentos)[posicao].servicoDesejado[i],"");

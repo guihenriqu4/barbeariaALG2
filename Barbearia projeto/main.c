@@ -14,9 +14,7 @@ Agendamento *agendamentos = NULL;
 int qtdCliente = 0, qtdColab = 0;
 long int qtdAgend = 0;
 
-/*
-void inicializarDados() {
-    // --- Inicializa Clientes ---
+/* void inicializarDados() {
     int capacidadeCl = 15;
     qtdCliente = 10;
     clientes = (Cliente *) malloc(capacidadeCl * sizeof(Cliente));
@@ -25,7 +23,6 @@ void inicializarDados() {
         exit(1);
     }
 
-    // Populando todos os 10 clientes
     strcpy(clientes[0].cpf, "321.654.987-00");
     strcpy(clientes[0].nome, "Lucas Andrade");
     clientes[0].celular = 11987654322;
@@ -77,7 +74,6 @@ void inicializarDados() {
     strcpy(clientes[9].dataIntegracao, "21/08/24");
 
 
-    // --- Inicializa Colaboradores ---
     int capacidadeC = 15;
     qtdColab = 10;
     colabs = (Colab *) malloc(capacidadeC * sizeof(Colab));
@@ -86,7 +82,6 @@ void inicializarDados() {
         exit(1);
     }
 
-    // Colaborador 1
     colabs[0].id = 1;
     strcpy(colabs[0].nome, "Lucas Ferreira");
     colabs[0].celular = 11987654321;
@@ -94,7 +89,6 @@ void inicializarDados() {
     strcpy(colabs[0].servicosPrestados[0], "Corte de cabelo");
     strcpy(colabs[0].servicosPrestados[1], "Barba");
 
-    // Colaborador 2
     colabs[1].id = 2;
     strcpy(colabs[1].nome, "Ana Beatriz");
     colabs[1].celular = 11976543210;
@@ -102,14 +96,12 @@ void inicializarDados() {
     strcpy(colabs[1].servicosPrestados[0], "Corte de cabelo");
     strcpy(colabs[1].servicosPrestados[1], "Hidratacao");
 
-    // Colaborador 3
     colabs[2].id = 3;
     strcpy(colabs[2].nome, "Rafael Souza");
     colabs[2].celular = 11998765432;
     colabs[2].nServicos = 1;
     strcpy(colabs[2].servicosPrestados[0], "Corte Infantil");
 
-    // Colaborador 4
     colabs[3].id = 4;
     strcpy(colabs[3].nome, "Camila Dias");
     colabs[3].celular = 11981234567;
@@ -117,7 +109,6 @@ void inicializarDados() {
     strcpy(colabs[3].servicosPrestados[0], "Barboterapia");
     strcpy(colabs[3].servicosPrestados[1], "Corte de cabelo");
 
-    // Colaborador 5
     colabs[4].id = 5;
     strcpy(colabs[4].nome, "Gustavo Lima");
     colabs[4].celular = 11976549870;
@@ -125,7 +116,6 @@ void inicializarDados() {
     strcpy(colabs[4].servicosPrestados[0], "Corte de cabelo");
     strcpy(colabs[4].servicosPrestados[1], "Barba");
 
-    // Colaborador 6
     colabs[5].id = 6;
     strcpy(colabs[5].nome, "Fabio Almeida");
     colabs[5].celular = 11987654323;
@@ -133,7 +123,6 @@ void inicializarDados() {
     strcpy(colabs[5].servicosPrestados[0], "Barboterapia");
     strcpy(colabs[5].servicosPrestados[1], "Hidratacao");
 
-    // Colaborador 7
     colabs[6].id = 7;
     strcpy(colabs[6].nome, "Patricia Lima");
     colabs[6].celular = 11976543212;
@@ -141,7 +130,6 @@ void inicializarDados() {
     strcpy(colabs[6].servicosPrestados[0], "Corte de cabelo");
     strcpy(colabs[6].servicosPrestados[1], "Sobrancelha");
 
-    // Colaborador 8
     colabs[7].id = 8;
     strcpy(colabs[7].nome, "Bruno Carvalho");
     colabs[7].celular = 11998765434;
@@ -149,7 +137,6 @@ void inicializarDados() {
     strcpy(colabs[7].servicosPrestados[0], "Corte de cabelo");
     strcpy(colabs[7].servicosPrestados[1], "Barba");
 
-    // Colaborador 9
     colabs[8].id = 9;
     strcpy(colabs[8].nome, "Aline Souza");
     colabs[8].celular = 11981234569;
@@ -157,7 +144,6 @@ void inicializarDados() {
     strcpy(colabs[8].servicosPrestados[0], "Corte de cabelo");
     strcpy(colabs[8].servicosPrestados[1], "Barba");
 
-    // Colaborador 10
     colabs[9].id = 10;
     strcpy(colabs[9].nome, "Renato Silva");
     colabs[9].celular = 11976549872;
@@ -165,7 +151,6 @@ void inicializarDados() {
     strcpy(colabs[9].servicosPrestados[0], "Corte de cabelo");
     strcpy(colabs[9].servicosPrestados[1], "Hidratacao");
 
-    // --- Inicializa Agendamentos ---
     int capacidadeA = 15;
     qtdAgend = 10;
 
@@ -174,7 +159,7 @@ void inicializarDados() {
         perror("Falha ao alocar memoria inicial para agendamentos");
         exit(1);
     }
-    // Agendamento 1
+
     agendamentos[0].id = 1;
     strcpy(agendamentos[0].cpfCliente, "321.654.987-00");
     agendamentos[0].idColab = 1;
@@ -183,7 +168,6 @@ void inicializarDados() {
     strcpy(agendamentos[0].servicoDesejado[0], "Corte de cabelo");
     strcpy(agendamentos[0].servicoDesejado[1], "Barba");
 
-    // Agendamento 2
     agendamentos[1].id = 2;
     strcpy(agendamentos[1].cpfCliente, "654.321.987-11");
     agendamentos[1].idColab = 2;
@@ -191,7 +175,6 @@ void inicializarDados() {
     strcpy(agendamentos[1].horario, "10:30");
     strcpy(agendamentos[1].servicoDesejado[0], "Hidratacao");
 
-    // Agendamento 3
     agendamentos[2].id = 3;
     strcpy(agendamentos[2].cpfCliente, "222.333.444-55");
     agendamentos[2].idColab = 3;
@@ -199,7 +182,6 @@ void inicializarDados() {
     strcpy(agendamentos[2].horario, "14:00");
     strcpy(agendamentos[2].servicoDesejado[0], "Corte Infantil");
 
-    // Agendamento 4
     agendamentos[3].id = 4;
     strcpy(agendamentos[3].cpfCliente, "777.888.999-00");
     agendamentos[3].idColab = 4;
@@ -208,7 +190,6 @@ void inicializarDados() {
     strcpy(agendamentos[3].servicoDesejado[0], "Barboterapia");
     strcpy(agendamentos[3].servicoDesejado[1], "Corte de cabelo");
 
-    // Agendamento 5
     agendamentos[4].id = 5;
     strcpy(agendamentos[4].cpfCliente, "888.777.666-11");
     agendamentos[4].idColab = 5;
@@ -217,7 +198,6 @@ void inicializarDados() {
     strcpy(agendamentos[4].servicoDesejado[0], "Corte de cabelo");
     strcpy(agendamentos[4].servicoDesejado[1], "Barba");
 
-    // Agendamento 6
     agendamentos[5].id = 6;
     strcpy(agendamentos[5].cpfCliente, "123.456.789-01");
     agendamentos[5].idColab = 6;
@@ -226,7 +206,6 @@ void inicializarDados() {
     strcpy(agendamentos[5].servicoDesejado[0], "Barboterapia");
     strcpy(agendamentos[5].servicoDesejado[1], "Hidratacao");
 
-    // Agendamento 7
     agendamentos[6].id = 7;
     strcpy(agendamentos[6].cpfCliente, "987.654.321-99");
     agendamentos[6].idColab = 7;
@@ -234,7 +213,6 @@ void inicializarDados() {
     strcpy(agendamentos[6].horario, "15:00");
     strcpy(agendamentos[6].servicoDesejado[0], "Sobrancelha");
 
-    // Agendamento 8
     agendamentos[7].id = 8;
     strcpy(agendamentos[7].cpfCliente, "111.222.333-44");
     agendamentos[7].idColab = 8;
@@ -243,7 +221,6 @@ void inicializarDados() {
     strcpy(agendamentos[7].servicoDesejado[0], "Corte de cabelo");
     strcpy(agendamentos[7].servicoDesejado[1], "Barba");
 
-    // Agendamento 9
     agendamentos[8].id = 9;
     strcpy(agendamentos[8].cpfCliente, "555.666.777-88");
     agendamentos[8].idColab = 9;
@@ -251,7 +228,6 @@ void inicializarDados() {
     strcpy(agendamentos[8].horario, "09:30");
     strcpy(agendamentos[8].servicoDesejado[0], "Barba");
 
-    // Agendamento 10
     agendamentos[9].id = 10;
     strcpy(agendamentos[9].cpfCliente, "999.888.777-66");
     agendamentos[9].idColab = 10;
