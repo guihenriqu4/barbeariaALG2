@@ -20,7 +20,7 @@ typedef struct Colab {
 
 typedef struct Agendamento {
     long int id;
-    char cpfClinte[15];
+    char cpfCliente[15];
     int idColab;
     char data[9];
     char horario[6];

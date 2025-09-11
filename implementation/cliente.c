@@ -11,9 +11,9 @@ int capacidadeCl = 15; //Gerencia a capacidade do vetor de clientes (tamanho tot
 void inserirCliente(Cliente **p, FILE *fcliente, int *qtdCliente){
     if(*qtdCliente >= capacidadeCl){ //Verifica se existem clientes suficientes para preencher completamente o vetor
 
-        fcliente = fopen("clientes.txt", "wb"); //Abre um arquivo binário clientes
+        fcliente = fopen("clientes.bin", "wb"); //Abre um arquivo binário clientes
         if(fcliente == NULL){ //Verifica se houve algum erro na abertura do arquivo
-            perror("Erro ao abrir o arquivo.");
+            perror("Erro ao abrir o arquivo clientes.");
             exit(1);
         }
 
@@ -76,7 +76,7 @@ void listarClientes(Cliente *clientes, int *qtdCliente) {
 }
 
 //Alterar as informações do Cliente
-void alterarClientes(Cliente **clientes, int *qtdCliente){
+void alterarClientes(Cliente **clientes, int *qtdCliente, FILE *fcliente){
     if (*qtdCliente == 0){//Garante que tem algum cliente cadastrado
         printf("\nNenhum cliente cadastrado.\n\n");
         return;
@@ -101,6 +101,17 @@ void alterarClientes(Cliente **clientes, int *qtdCliente){
             printf("\nInforme a nova data do cadastro (dd/MM/YY): ");
             scanf(" %[^\n]",(*clientes)[i].dataIntegracao);
 
+            //Abre o arquivo binario em modo de leitura e escrita binaria para nao apagar
+            fcliente = fopen("clientes.bin","wb");
+            if(fcliente==NULL){//Verifica se o arquivo foi aberto corretamente
+                perror("\nErro ao abrir o arquivo clientes!\n");
+                return;
+            }
+
+            fwrite(qtdCliente,sizeof(int),1,fcliente);//Escreve a quantidade de clientes no inicio do arquivo
+            fwrite(*clientes,sizeof(Cliente),*qtdCliente,fcliente);//Escreve o vetor clientes com os novos dados
+            fclose(fcliente);//Fecha o arquivo
+
             printf("\nCliente alterado com sucesso!\n");//Garante ao usuario que a alteração tenha sido concluida
             clienteEncontrado = 1;//Mostra que o cliente foi encontrado
             break;
@@ -124,7 +135,7 @@ void removerClientes(Cliente **clientes, Agendamento *agendamentos, long int *qt
 
     // 🔹 Verifica se cliente possui agendamentos
     for (int i = 0; i < *qtdAgendamentos; i++) {
-        if (strcmp(agendamentos[i].cpfClinte, cpfBusca) == 0) {
+        if (strcmp(agendamentos[i].cpfCliente, cpfBusca) == 0) {
             printf("\nNao e possivel remover o cliente %s, pois possui agendamentos ativos.\n", cpfBusca);
             return;
         }
@@ -160,7 +171,7 @@ void removerClientes(Cliente **clientes, Agendamento *agendamentos, long int *qt
     // 🔹 Atualiza arquivo binário
     fcliente = fopen("clientes.bin", "wb");
     if (fcliente == NULL) {
-        perror("\nErro: nao foi possivel abrir o arquivo clientes.bin\n");
+        perror("\nErro: nao foi possivel abrir o arquivo clientes\n");
         exit(1);
     }
     fwrite(*clientes, sizeof(Cliente), *qtdCliente, fcliente);

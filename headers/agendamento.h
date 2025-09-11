@@ -14,4 +14,6 @@ void buscarAgendamentosPorData(Agendamento *agendamentos, long int *qtdAgendamen
 
 void removerAgendamentos(Agendamento **agendamentos, long int *qtdAgendamentos, FILE *fagen);
 
+void alterarAgendamento(Agendamento **agendamentos, long int *qtdAgen, Cliente *clientes, int *qtdClientes, Colab *colabs, int *qtdColabs, FILE *fagen);
+
 #endif

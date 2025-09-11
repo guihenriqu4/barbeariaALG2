@@ -188,11 +188,11 @@ long int qtdAgend = 0;
 void inicializarDados(){
     fcliente = fopen("clientes.bin", "rb");
     if(fcliente == NULL){
-        perror("Erro ao abrir arquivo\n");
+        perror("Erro ao abrir arquivo clientes\n");
         exit(1);
     }
     fread(&qtdCliente, sizeof(int), 1, fcliente);
-    
+
     clientes = (Cliente *) malloc(qtdCliente * sizeof(Cliente));
     if(clientes == NULL){
         perror("Erro ao alocar memória.\n");
@@ -204,11 +204,11 @@ void inicializarDados(){
 
     fcolabs = fopen("colabs.bin", "rb");
     if(fcolabs == NULL){
-        perror("Erro ao abrir arquivo\n");
+        perror("Erro ao abrir arquivo colabs\n");
         exit(1);
     }
     fread(&qtdColab, sizeof(int), 1, fcolabs);
-    
+
     colabs = (Colab *) malloc(qtdColab * sizeof(Colab));
     if(colabs == NULL){
         perror("Erro ao alocar memória.\n");
@@ -253,7 +253,7 @@ void menuClientes() {
                     listarClientes(clientes, &qtdCliente);
                     break;
                 case 3:
-                    alterarClientes(&clientes, &qtdCliente);
+                    alterarClientes(&clientes, &qtdCliente,fcliente);
                     break;
                 case 4:
                     removerClientes(&clientes, agendamentos, &qtdAgend, &qtdCliente, fcliente);
@@ -301,7 +301,7 @@ void menuColabs() {
                     listarColabs(colabs, &qtdColab);
                     break;
                 case 3:
-                    alterarColabs(&colabs, &qtdColab);
+                    alterarColabs(&colabs, &qtdColab,fcolabs);
                     break;
                 case 4:
                     removerColabs(&colabs, agendamentos, &qtdAgend, &qtdColab, fcolabs);
@@ -349,7 +349,7 @@ void menuColabs() {
                     //listarAgendamentos(agendamentos);
                     break;
                 case 3:
-                    //alterarAgendamentos(agendamentos);
+                    //alterarAgendamentos(&agendamentos,&qtdAgen,clientes,&qtdClientes,colabs,&qtdColabs,fagen);
                     break;
                 case 4:
                     //removerAgendamentos(agendamentos);
